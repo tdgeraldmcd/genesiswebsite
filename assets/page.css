@@ -452,9 +452,15 @@ textarea {
   background: var(--color-ink);
 }
 
+.thesis-actions {
+  display: flex;
+  justify-content: center;
+  margin-top: clamp(20px, 3vw, 34px);
+}
+
 .thesis-form {
   width: min(100%, 900px);
-  margin: clamp(34px, 5vw, 64px) auto 0;
+  margin: clamp(28px, 4vw, 52px) auto 0;
 }
 
 .thesis-form iframe {
