@@ -404,18 +404,19 @@ textarea {
 }
 
 .thesis-header {
-  display: flex;
+  display: grid;
   align-items: center;
-  justify-content: flex-end;
+  grid-template-columns: minmax(0, 1fr) auto;
   gap: 24px;
   padding: 30px var(--space-page);
 }
 
 .thesis-header .brand-link {
-  margin-right: auto;
+  justify-self: start;
 }
 
 .thesis-phone {
+  justify-self: end;
   margin: 0;
   color: var(--color-ink);
   font-size: clamp(0.84rem, 1.6vw, 1.1rem);
@@ -503,7 +504,6 @@ textarea {
   }
 
   .thesis-header {
-    justify-content: flex-start;
     padding: 26px var(--space-page) 0;
   }
 
