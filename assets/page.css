@@ -476,6 +476,18 @@ textarea {
   margin-top: clamp(42px, 6vw, 78px);
 }
 
+.bac-copy {
+  width: min(100%, 900px);
+  margin: clamp(28px, 4vw, 52px) auto 0;
+  text-align: left;
+}
+
+.bac-copy p {
+  margin: 0;
+  color: var(--color-ink-soft);
+  font-size: 0.95rem;
+}
+
 .thesis-contact {
   padding: 0 var(--space-page) 26px;
   color: var(--color-ink-soft);
