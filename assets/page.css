@@ -411,17 +411,41 @@ textarea {
 }
 
 .thesis-article h1 {
-  max-width: 17ch;
+  max-width: min(100%, 1080px);
   margin: 0 auto;
   padding-bottom: 0;
   border-bottom: 0;
-  font-size: clamp(2.35rem, 6.8vw, 6.3rem);
+  font-size: 3.45rem;
+  line-height: 1.02;
+  text-align: center;
+}
+
+.thesis-title-line {
+  display: block;
 }
 
 .thesis-video {
   width: min(100%, 900px);
   margin: clamp(28px, 4.6vw, 54px) auto 0;
   background: var(--color-ink);
+}
+
+@media (min-width: 761px) {
+  .thesis-title-line {
+    white-space: nowrap;
+  }
+}
+
+@media (max-width: 1100px) {
+  .thesis-article h1 {
+    font-size: 2.95rem;
+  }
+}
+
+@media (max-width: 900px) {
+  .thesis-article h1 {
+    font-size: 2.45rem;
+  }
 }
 
 @media (max-width: 760px) {
@@ -445,6 +469,10 @@ textarea {
   .about-article {
     padding-top: 30px;
     padding-left: var(--space-page);
+  }
+
+  .thesis-article h1 {
+    font-size: 2rem;
   }
 
   .page-hero {
