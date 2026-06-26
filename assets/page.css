@@ -446,8 +446,6 @@ textarea {
 }
 
 .thesis-contact {
-  display: grid;
-  gap: 18px;
   padding: 0 var(--space-page) 26px;
   color: var(--color-ink-soft);
   font-size: 0.85rem;
@@ -455,10 +453,6 @@ textarea {
 
 .thesis-contact p {
   margin: 0;
-}
-
-.thesis-contact strong {
-  color: var(--color-ink);
 }
 
 @media (min-width: 761px) {
