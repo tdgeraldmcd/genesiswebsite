@@ -405,8 +405,14 @@ textarea {
 
 .thesis-header {
   display: flex;
+  align-items: center;
   justify-content: flex-end;
+  gap: 24px;
   padding: 30px var(--space-page);
+}
+
+.thesis-header .brand-link {
+  margin-right: auto;
 }
 
 .thesis-phone {
