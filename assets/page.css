@@ -403,6 +403,27 @@ textarea {
   text-transform: uppercase;
 }
 
+.thesis-article {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding-left: var(--space-page);
+  text-align: center;
+}
+
+.thesis-article h1 {
+  max-width: 17ch;
+  margin: 0 auto;
+  padding-bottom: 0;
+  border-bottom: 0;
+  font-size: clamp(2.35rem, 6.8vw, 6.3rem);
+}
+
+.thesis-video {
+  width: min(100%, 900px);
+  margin: clamp(28px, 4.6vw, 54px) auto 0;
+  background: var(--color-ink);
+}
+
 @media (max-width: 760px) {
   .page-nav {
     align-items: flex-start;
