@@ -472,6 +472,10 @@ textarea {
   background: var(--color-paper);
 }
 
+.bac-page .thesis-video {
+  margin-top: clamp(42px, 6vw, 78px);
+}
+
 .thesis-contact {
   padding: 0 var(--space-page) 26px;
   color: var(--color-ink-soft);
