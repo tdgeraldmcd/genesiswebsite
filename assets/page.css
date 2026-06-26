@@ -452,6 +452,16 @@ textarea {
   background: var(--color-ink);
 }
 
+.thesis-form {
+  width: min(100%, 900px);
+  margin: clamp(34px, 5vw, 64px) auto 0;
+}
+
+.thesis-form iframe {
+  display: block;
+  border: 0;
+}
+
 .thesis-contact {
   padding: 0 var(--space-page) 26px;
   color: var(--color-ink-soft);
