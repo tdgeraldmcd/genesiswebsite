@@ -108,16 +108,24 @@
         color: inherit;
       }
 
-      .top-contact {
+      .top-nav {
         position: absolute;
         z-index: 3;
         top: 34px;
         right: clamp(22px, 4vw, 56px);
-        margin: 0;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: flex-end;
+        gap: 20px;
         color: var(--color-paper);
         font-size: clamp(0.84rem, 1.6vw, 1.1rem);
         font-weight: 600;
         line-height: 1.15;
+        text-transform: uppercase;
+      }
+
+      .top-nav a {
+        text-decoration: none;
       }
 
       main {
@@ -380,8 +388,9 @@
           min-height: auto;
         }
 
-        .top-contact {
+        .top-nav {
           position: static;
+          justify-content: flex-start;
           padding: 26px var(--space-page) 0;
           background: var(--color-paper);
           color: var(--color-ink);
@@ -421,7 +430,12 @@
     height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <!-- End Google Tag Manager (noscript) -->
 
-    <p class="top-contact">Phone: (914) 455-0381</p>
+    <nav class="top-nav" aria-label="Primary navigation">
+      <a href="about/index.html">About</a>
+      <a href="services/index.html">Services</a>
+      <a href="contact/index.html">Contact</a>
+      <a href="login/index.html">Login</a>
+    </nav>
 
     <main>
       <section class="split-hero" aria-labelledby="hero-title">
@@ -434,7 +448,7 @@
             </div>
 
             <div class="actions">
-              <a class="button" href="thesis/">View Thesis</a>
+              <a class="button" href="thesis/index.html">View Thesis</a>
             </div>
           </section>
           <p class="hero-meta">Est. 2014, New York</p>
