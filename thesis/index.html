@@ -86,7 +86,7 @@
           </div>
 
           <div class="thesis-actions">
-            <a class="button" href="apply/">Get Price</a>
+            <a class="button" id="apply-button" href="https://tally.so/r/9qa9pK">Apply Now</a>
           </div>
         </article>
       </main>
@@ -99,5 +99,122 @@
         <p>&copy; 2026. Genesis Content</p>
       </footer>
     </div>
+
+    <script>
+      (() => {
+        const STORAGE_KEY_FIRST = "first_touch_attribution";
+        const STORAGE_KEY_LATEST = "latest_touch_attribution";
+        const TRACKED_PARAMETERS = [
+          "utm_source",
+          "utm_campaign",
+          "fbclid",
+          "gclid"
+        ];
+
+        function safeParse(value) {
+          try {
+            return value ? JSON.parse(value) : {};
+          } catch {
+            return {};
+          }
+        }
+
+        function getCurrentTouch() {
+          const params = new URLSearchParams(window.location.search);
+          const landingPage = new URL(window.location.href);
+          landingPage.pathname = landingPage.pathname.replace(/\/thesis\/index\.html$/, "/thesis/");
+
+          return {
+            utm_source: params.get("utm_source") || "",
+            utm_campaign: params.get("utm_campaign") || "",
+            landing_page: landingPage.toString(),
+            fbclid: params.get("fbclid") || "",
+            gclid: params.get("gclid") || "",
+            referrer: document.referrer || "",
+            captured_at: new Date().toISOString()
+          };
+        }
+
+        function hasCampaignData(touch) {
+          return TRACKED_PARAMETERS.some(
+            parameter => Boolean(touch[parameter])
+          );
+        }
+
+        function saveAttribution() {
+          const currentTouch = getCurrentTouch();
+
+          if (!localStorage.getItem(STORAGE_KEY_FIRST)) {
+            localStorage.setItem(
+              STORAGE_KEY_FIRST,
+              JSON.stringify(currentTouch)
+            );
+          }
+
+          if (hasCampaignData(currentTouch)) {
+            localStorage.setItem(
+              STORAGE_KEY_LATEST,
+              JSON.stringify(currentTouch)
+            );
+          } else if (!localStorage.getItem(STORAGE_KEY_LATEST)) {
+            localStorage.setItem(
+              STORAGE_KEY_LATEST,
+              JSON.stringify(currentTouch)
+            );
+          }
+        }
+
+        function buildTallyUrl(baseUrl) {
+          const first = safeParse(
+            localStorage.getItem(STORAGE_KEY_FIRST)
+          );
+          const latest = safeParse(
+            localStorage.getItem(STORAGE_KEY_LATEST)
+          );
+          const tallyUrl = new URL(baseUrl);
+          const tallyFields = {
+            first_utm_source: first.utm_source || "",
+            first_utm_campaign: first.utm_campaign || "",
+            first_landing_page: first.landing_page || "",
+            latest_utm_source: latest.utm_source || "",
+            latest_utm_campaign: latest.utm_campaign || "",
+            latest_landing_page: latest.landing_page || "",
+            fbclid: latest.fbclid || first.fbclid || "",
+            gclid: latest.gclid || first.gclid || ""
+          };
+
+          for (const [field, value] of Object.entries(tallyFields)) {
+            if (value) {
+              tallyUrl.searchParams.set(field, value);
+            }
+          }
+
+          return tallyUrl.toString();
+        }
+
+        function connectTallyButton() {
+          const button = document.getElementById("apply-button");
+
+          if (!button) return;
+
+          const originalTallyUrl = button.getAttribute("href");
+
+          if (!originalTallyUrl) return;
+
+          button.addEventListener("click", event => {
+            event.preventDefault();
+            window.location.href = buildTallyUrl(originalTallyUrl);
+          });
+        }
+
+        saveAttribution();
+
+        if (document.readyState === "loading") {
+          document.addEventListener("DOMContentLoaded", connectTallyButton);
+        } else {
+          connectTallyButton();
+        }
+      })();
+    </script>
   </body>
 </html>

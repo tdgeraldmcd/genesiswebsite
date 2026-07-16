@@ -4,7 +4,6 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
     <title>Apply</title>
-    <script async src="https://tally.so/widgets/embed.js"></script>
     <style type="text/css">
       html { margin: 0; height: 100%; overflow: hidden; }
       body { margin: 0; height: 100%; overflow: hidden; }
@@ -12,6 +11,44 @@
     </style>
   </head>
   <body>
-    <iframe data-tally-src="https://tally.so/r/9qa9pK?transparentBackground=1" width="100%" height="100%" frameborder="0" marginheight="0" marginwidth="0" title="Apply"></iframe>
+    <iframe id="apply-form" data-tally-src="https://tally.so/r/9qa9pK?transparentBackground=1" width="100%" height="100%" frameborder="0" marginheight="0" marginwidth="0" title="Apply"></iframe>
+    <script>
+      (() => {
+        const iframe = document.getElementById("apply-form");
+        if (!iframe) return;
+
+        const formUrl = new URL(iframe.dataset.tallySrc);
+
+        function readAttribution(storageKey) {
+          try {
+            return JSON.parse(localStorage.getItem(storageKey)) || {};
+          } catch {
+            return {};
+          }
+        }
+
+        const firstTouch = readAttribution("first_touch_attribution");
+        const latestTouch = readAttribution("latest_touch_attribution");
+        const hiddenFields = {
+          first_utm_source: firstTouch.utm_source,
+          first_utm_campaign: firstTouch.utm_campaign,
+          first_landing_page: firstTouch.landing_page,
+          latest_utm_source: latestTouch.utm_source,
+          latest_utm_campaign: latestTouch.utm_campaign,
+          latest_landing_page: latestTouch.landing_page,
+          gclid: latestTouch.gclid || firstTouch.gclid,
+          fbclid: latestTouch.fbclid || firstTouch.fbclid
+        };
+
+        Object.entries(hiddenFields).forEach(([field, value]) => {
+          if (value) {
+            formUrl.searchParams.set(field, value);
+          }
+        });
+
+        iframe.dataset.tallySrc = formUrl.toString();
+      })();
+    </script>
+    <script async src="https://tally.so/widgets/embed.js"></script>
   </body>
 </html>
