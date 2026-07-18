@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Silent List — What an Unmailed List Costs You</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Instrument+Sans:wght@400;500;600&family=Spline+Sans+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#16242E;
+    --ink-soft:#3E5261;
+    --paper:#EFF2F1;
+    --card:#FFFFFF;
+    --leak:#C2452F;
+    --leak-deep:#8F2F1D;
+    --gain:#2E7D5B;
+    --line:#D5DBD9;
+    --amber:#B98A2E;
+    --radius:14px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'Instrument Sans',sans-serif;
+    font-size:16px;
+    line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+  }
+  .mono{font-family:'Spline Sans Mono',monospace;font-variant-numeric:tabular-nums}
+  .wrap{max-width:1060px;margin:0 auto;padding:0 24px}
+
+  /* ---------- HERO ---------- */
+  header{padding:64px 0 40px;border-bottom:1px solid var(--line)}
+  .eyebrow{
+    font-family:'Spline Sans Mono',monospace;
+    font-size:12px;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--ink-soft);margin-bottom:18px;
+  }
+  h1{
+    font-family:'Instrument Serif',serif;
+    font-weight:400;
+    font-size:clamp(38px,6vw,64px);
+    line-height:1.04;
+    max-width:14ch;
+  }
+  h1 em{font-style:italic;color:var(--leak)}
+  .hero-sub{max-width:52ch;color:var(--ink-soft);margin-top:20px;font-size:17px}
+
+  /* Ticker — the signature */
+  .ticker{
+    margin-top:36px;
+    background:var(--ink);
+    color:var(--paper);
+    border-radius:var(--radius);
+    padding:26px 30px;
+    display:flex;flex-wrap:wrap;align-items:baseline;gap:10px 22px;
+  }
+  .ticker-label{font-size:13px;letter-spacing:.1em;text-transform:uppercase;color:#9FB2BE;font-family:'Spline Sans Mono',monospace}
+  .ticker-value{
+    font-family:'Spline Sans Mono',monospace;
+    font-size:clamp(30px,5vw,48px);
+    font-weight:600;color:#F2C879;
+    min-width:9ch;
+  }
+  .ticker-note{flex-basis:100%;font-size:13px;color:#8FA3B0}
+
+  /* ---------- LAYOUT ---------- */
+  main{display:grid;grid-template-columns:380px 1fr;gap:28px;padding:44px 0 24px}
+  @media(max-width:860px){main{grid-template-columns:1fr}}
+
+  .panel{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:28px}
+  .panel h2{
+    font-family:'Instrument Serif',serif;font-weight:400;font-size:24px;margin-bottom:6px;
+  }
+  .panel .hint{font-size:13.5px;color:var(--ink-soft);margin-bottom:24px}
+
+  /* ---------- CONTROLS ---------- */
+  .field{margin-bottom:26px}
+  .field-head{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:8px}
+  .field label{font-size:13px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:var(--ink-soft)}
+  .field-val{font-family:'Spline Sans Mono',monospace;font-weight:600;font-size:16px}
+  input[type=range]{
+    width:100%;appearance:none;height:4px;border-radius:2px;
+    background:linear-gradient(to right,var(--ink) var(--fill,50%),var(--line) var(--fill,50%));
+    outline:none;cursor:pointer;
+  }
+  input[type=range]::-webkit-slider-thumb{
+    appearance:none;width:20px;height:20px;border-radius:50%;
+    background:var(--card);border:3px solid var(--ink);
+    box-shadow:0 1px 4px rgba(22,36,46,.25);
+  }
+  input[type=range]:focus-visible::-webkit-slider-thumb{outline:3px solid var(--amber);outline-offset:2px}
+  input[type=range]::-moz-range-thumb{width:14px;height:14px;border-radius:50%;background:var(--card);border:3px solid var(--ink)}
+  .field .sub{font-size:12.5px;color:var(--ink-soft);margin-top:6px}
+
+  .scenario{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:8px}
+  .scenario button{
+    font-family:'Instrument Sans',sans-serif;font-size:13px;font-weight:600;
+    padding:10px 6px;border-radius:9px;border:1.5px solid var(--line);
+    background:var(--card);color:var(--ink-soft);cursor:pointer;transition:all .15s;
+  }
+  .scenario button:hover{border-color:var(--ink-soft)}
+  .scenario button[aria-pressed=true]{background:var(--ink);border-color:var(--ink);color:#fff}
+  .scenario button:focus-visible{outline:3px solid var(--amber);outline-offset:2px}
+  .scenario-desc{font-size:12.5px;color:var(--ink-soft);min-height:3.2em}
+
+  /* ---------- RESULTS ---------- */
+  .results{display:flex;flex-direction:column;gap:28px}
+  .headline-loss{
+    background:var(--card);border:1px solid var(--line);border-left:5px solid var(--leak);
+    border-radius:var(--radius);padding:28px;
+  }
+  .loss-label{font-size:13px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-soft);font-family:'Spline Sans Mono',monospace}
+  .loss-value{
+    font-family:'Spline Sans Mono',monospace;font-weight:600;
+    font-size:clamp(34px,5vw,52px);color:var(--leak-deep);line-height:1.1;margin:6px 0 2px;
+  }
+  .loss-monthly{font-size:15px;color:var(--ink-soft)}
+  .loss-monthly strong{color:var(--ink);font-family:'Spline Sans Mono',monospace}
+
+  /* funnel */
+  .funnel-row{display:grid;grid-template-columns:150px 1fr 110px;gap:14px;align-items:center;padding:13px 0;border-bottom:1px dashed var(--line)}
+  .funnel-row:last-child{border-bottom:none}
+  .f-name{font-size:13.5px;font-weight:600}
+  .f-name span{display:block;font-weight:400;font-size:12px;color:var(--ink-soft)}
+  .f-bar{height:22px;border-radius:5px;background:var(--ink);min-width:3px;transition:width .35s ease}
+  .f-bar.leak-bar{background:var(--leak)}
+  .f-bar.gain-bar{background:var(--gain)}
+  .f-num{font-family:'Spline Sans Mono',monospace;font-weight:600;text-align:right;font-size:15px}
+
+  .roi-strip{
+    display:grid;grid-template-columns:repeat(3,1fr);gap:12px;
+  }
+  @media(max-width:640px){.roi-strip{grid-template-columns:1fr}}
+  .roi-card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:20px}
+  .roi-card .k{font-size:12px;letter-spacing:.09em;text-transform:uppercase;color:var(--ink-soft);font-family:'Spline Sans Mono',monospace;margin-bottom:6px}
+  .roi-card .v{font-family:'Spline Sans Mono',monospace;font-weight:600;font-size:22px}
+  .roi-card .v.gain{color:var(--gain)}
+
+  /* ---------- METHOD ---------- */
+  .method{padding:20px 0 72px}
+  .method h2{font-family:'Instrument Serif',serif;font-weight:400;font-size:26px;margin-bottom:14px}
+  .method p{max-width:68ch;color:var(--ink-soft);font-size:14.5px;margin-bottom:12px}
+  .method p strong{color:var(--ink)}
+
+  @media(prefers-reduced-motion:reduce){
+    .f-bar{transition:none}
+    html{scroll-behavior:auto}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <div class="eyebrow">Lost-revenue calculator · Service businesses · $2.5k–$50k offers</div>
+    <h1>Your list is quiet. <em>Quiet is expensive.</em></h1>
+    <p class="hero-sub">Email returns roughly $36–$42 for every $1 spent — the highest of any digital channel. This calculator uses industry benchmark open, click, and close rates to estimate what a list you're <strong>not</strong> mailing is costing you every month.</p>
+
+    <div class="ticker" role="status" aria-live="off">
+      <span class="ticker-label">Estimated revenue leaked since you opened this page</span>
+      <span class="ticker-value mono" id="ticker">$0.00</span>
+      <span class="ticker-note" id="tickerNote">Based on your inputs below · running at $0.00 per hour</span>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+  <main>
+    <!-- CONTROLS -->
+    <section class="panel" aria-label="Your numbers">
+      <h2>Your numbers</h2>
+      <p class="hint">Set your list, your offer, and how aggressively you'd realistically perform.</p>
+
+      <div class="field">
+        <div class="field-head">
+          <label for="listSize">Email list size</label>
+          <span class="field-val mono" id="listSizeVal">2,500</span>
+        </div>
+        <input type="range" id="listSize" min="250" max="50000" step="250" value="2500">
+        <div class="sub">Subscribers currently receiving nothing</div>
+      </div>
+
+      <div class="field">
+        <div class="field-head">
+          <label for="emailsMo">Emails per month</label>
+          <span class="field-val mono" id="emailsMoVal">4</span>
+        </div>
+        <input type="range" id="emailsMo" min="1" max="12" step="1" value="4">
+        <div class="sub">One a week is the standard baseline cadence</div>
+      </div>
+
+      <div class="field">
+        <div class="field-head">
+          <label for="price">Average offer price</label>
+          <span class="field-val mono" id="priceVal">$7,500</span>
+        </div>
+        <input type="range" id="price" min="2500" max="50000" step="500" value="7500">
+        <div class="sub">Typical engagement value for your service</div>
+      </div>
+
+      <div class="field">
+        <div class="field-head"><label>Performance scenario</label></div>
+        <div class="scenario" role="group" aria-label="Performance scenario">
+          <button type="button" data-s="0" aria-pressed="false">Conservative</button>
+          <button type="button" data-s="1" aria-pressed="true">Benchmark</button>
+          <button type="button" data-s="2" aria-pressed="false">Strong</button>
+        </div>
+        <div class="scenario-desc" id="scenarioDesc"></div>
+      </div>
+    </section>
+
+    <!-- RESULTS -->
+    <section class="results" aria-label="Results">
+      <div class="headline-loss">
+        <div class="loss-label">Left on the table · per year</div>
+        <div class="loss-value mono" id="annualLoss">$0</div>
+        <div class="loss-monthly">That's <strong id="monthlyLoss">$0</strong> a month — <span id="clientLine">0 clients</span> your inbox never asked for.</div>
+      </div>
+
+      <div class="panel" style="padding:24px 28px">
+        <h2 style="font-size:20px;margin-bottom:14px">Where the money comes from</h2>
+        <div id="funnel"></div>
+      </div>
+
+      <div class="roi-strip">
+        <div class="roi-card">
+          <div class="k">Est. monthly cost to run</div>
+          <div class="v mono" id="costRun">$0</div>
+        </div>
+        <div class="roi-card">
+          <div class="k">Return per $1 spent</div>
+          <div class="v mono gain" id="roiPerDollar">—</div>
+        </div>
+        <div class="roi-card">
+          <div class="k">5-year opportunity cost</div>
+          <div class="v mono" id="fiveYear">$0</div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <section class="method">
+    <h2>How this is calculated</h2>
+    <p><strong>The funnel:</strong> monthly sends = list size × emails per month. Opens = sends × open rate. Clicks = sends × click-through rate. New clients = clicks × click-to-client rate (the share of clickers who eventually book and buy — deliberately small for high-ticket services, where a sale means a booked call and a closed proposal, not a checkout).</p>
+    <p><strong>The benchmarks:</strong> average open rates across industries run roughly 19–21%, with B2B and professional services in the 18–22% band and strong senders (consulting lists on some platforms) reaching 40%+. Average click-through rates sit near 2–2.5%, with anything above 3.5% considered excellent. The Conservative scenario assumes below-average engagement and a 0.4% click-to-client rate; Benchmark uses industry-average rates and 0.8%; Strong assumes an engaged, well-segmented list at 1.5%.</p>
+    <p><strong>The cost side:</strong> running cost is estimated as a platform fee scaled to list size plus a flat content/labor allowance (~$500/mo if outsourced or valued at your time). The industry-average return of $36–$42 per $1 is shown for reference; your computed ratio appears above and is usually more conservative.</p>
+    <p style="font-size:13px">These are directional estimates for planning conversations, not forecasts. Sources: Litmus/DMA ROI studies, Mailchimp, MailerLite, Brevo, WebFX, and monday.com 2025–2026 benchmark reports.</p>
+  </section>
+</div>
+
+<script>
+(function(){
+  const $ = id => document.getElementById(id);
+
+  const scenarios = [
+    {name:"Conservative", open:0.16, ctr:0.015, close:0.004,
+     desc:"Below-average engagement: 16% opens, 1.5% CTR, 0.4% of clickers become clients."},
+    {name:"Benchmark", open:0.21, ctr:0.025, close:0.008,
+     desc:"Industry averages: 21% opens, 2.5% CTR, 0.8% of clickers become clients."},
+    {name:"Strong", open:0.32, ctr:0.035, close:0.015,
+     desc:"Engaged, segmented list: 32% opens, 3.5% CTR, 1.5% of clickers become clients."}
+  ];
+  let sIdx = 1;
+
+  const fmtInt = n => n.toLocaleString("en-US",{maximumFractionDigits:0});
+  const fmtMoney = n => "$" + n.toLocaleString("en-US",{maximumFractionDigits:0});
+  const fmtMoney2 = n => "$" + n.toLocaleString("en-US",{minimumFractionDigits:2,maximumFractionDigits:2});
+
+  function fill(el){
+    const pct = (el.value - el.min) / (el.max - el.min) * 100;
+    el.style.setProperty("--fill", pct + "%");
+  }
+
+  let perSecond = 0, accrued = 0, lastT = performance.now();
+
+  function calc(){
+    const list = +$("listSize").value;
+    const emails = +$("emailsMo").value;
+    const price = +$("price").value;
+    const s = scenarios[sIdx];
+
+    const sends = list * emails;
+    const opens = sends * s.open;
+    const clicks = sends * s.ctr;
+    const clientsMo = clicks * s.close;
+    const revMo = clientsMo * price;
+    const revYr = revMo * 12;
+
+    // cost model: platform fee ~ $20 base + $12 per 1k subs, + $500 content/labor
+    const costMo = 20 + (list/1000)*12 + 500;
+    const roi = costMo > 0 ? revMo / costMo : 0;
+
+    // UI
+    $("listSizeVal").textContent = fmtInt(list);
+    $("emailsMoVal").textContent = emails;
+    $("priceVal").textContent = fmtMoney(price);
+    $("annualLoss").textContent = fmtMoney(revYr);
+    $("monthlyLoss").textContent = fmtMoney(revMo);
+    const cy = clientsMo*12;
+    $("clientLine").textContent = (cy < 1 ? cy.toFixed(1) : Math.round(cy).toLocaleString()) + " client" + (cy >= 1 && Math.round(cy) === 1 ? "" : "s") + " a year";
+    $("costRun").textContent = fmtMoney(costMo) + "/mo";
+    $("roiPerDollar").textContent = "$" + roi.toFixed(2);
+    $("fiveYear").textContent = fmtMoney(revYr*5);
+    $("scenarioDesc").textContent = s.desc;
+
+    // funnel bars (log-ish scaling so small numbers stay visible)
+    const rows = [
+      {name:"Emails sent", sub:"per month", val:sends, cls:""},
+      {name:"Opened", sub:(s.open*100).toFixed(0)+"% open rate", val:opens, cls:""},
+      {name:"Clicked", sub:(s.ctr*100).toFixed(1)+"% CTR", val:clicks, cls:"leak-bar"},
+      {name:"New clients", sub:(s.close*100).toFixed(1)+"% of clickers", val:clientsMo, cls:"gain-bar"}
+    ];
+    const maxLog = Math.log10(sends + 1);
+    $("funnel").innerHTML = rows.map(r=>{
+      const w = Math.max(2, Math.log10(r.val + 1) / maxLog * 100);
+      const num = r.val < 10 ? r.val.toFixed(1) : fmtInt(Math.round(r.val));
+      return `<div class="funnel-row">
+        <div class="f-name">${r.name}<span>${r.sub}</span></div>
+        <div><div class="f-bar ${r.cls}" style="width:${w}%"></div></div>
+        <div class="f-num">${num}</div>
+      </div>`;
+    }).join("");
+
+    perSecond = revYr / (365*24*3600);
+    $("tickerNote").textContent = "Based on your inputs below · leaking " + fmtMoney2(perSecond*3600) + " per hour";
+  }
+
+  // ticker loop
+  function tick(t){
+    accrued += perSecond * (t - lastT)/1000;
+    lastT = t;
+    $("ticker").textContent = fmtMoney2(accrued);
+    requestAnimationFrame(tick);
+  }
+
+  ["listSize","emailsMo","price"].forEach(id=>{
+    const el = $(id);
+    fill(el);
+    el.addEventListener("input", ()=>{ fill(el); calc(); });
+  });
+
+  document.querySelectorAll(".scenario button").forEach(b=>{
+    b.addEventListener("click", ()=>{
+      sIdx = +b.dataset.s;
+      document.querySelectorAll(".scenario button").forEach(x=>x.setAttribute("aria-pressed", x===b ? "true":"false"));
+      calc();
+    });
+  });
+
+  calc();
+  requestAnimationFrame(t=>{ lastT = t; requestAnimationFrame(tick); });
+})();
+</script>
+</body>
+</html>
