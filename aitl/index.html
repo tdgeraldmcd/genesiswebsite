@@ -4,7 +4,7 @@
     <script>
       (function () {
         var path = window.location.pathname;
-        if (path.endsWith('/ai-thought-leader/index.html')) {
+        if (path.endsWith('/aitl/index.html')) {
           window.location.replace(path.replace(/index\.html$/, '') + window.location.search + window.location.hash);
         }
       })();
@@ -26,7 +26,7 @@
       name="description"
       content="An open invitation to coaches, consultants, and service providers: become an AI assisted thought leader today."
     >
-    <link rel="canonical" href="https://genesiscontent.io/ai-thought-leader/">
+    <link rel="canonical" href="https://genesiscontent.io/aitl/">
 
     <!-- Google Tag Manager -->
     <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
@@ -116,8 +116,8 @@
           const params = new URLSearchParams(window.location.search);
           const landingPage = new URL(window.location.href);
           landingPage.pathname = landingPage.pathname.replace(
-            /\/ai-thought-leader\/index\.html$/,
-            "/ai-thought-leader/"
+            /\/aitl\/index\.html$/,
+            "/aitl/"
           );
 
           return {
