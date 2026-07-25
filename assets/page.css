@@ -524,15 +524,182 @@ textarea {
   margin: 0;
 }
 
+.strategy-style-page {
+  --strategy-canvas: #f8f8f8;
+  --strategy-surface: #ffffff;
+  --strategy-ink: #101010;
+  --strategy-muted: #5e5e5e;
+  --strategy-line: #c9c9c9;
+  --strategy-lime: #b8d52b;
+  --strategy-lime-dark: #98b216;
+  background: var(--strategy-canvas);
+  color: var(--strategy-ink);
+  font-family: "Inter", Arial, sans-serif;
+}
+
+.strategy-style-page .site-shell {
+  background: var(--strategy-canvas);
+}
+
+.strategy-style-page .thesis-header {
+  min-height: 66px;
+  padding-top: 18px;
+  padding-bottom: 18px;
+  border-bottom: 1px solid #e5e5e5;
+  background: var(--strategy-surface);
+  box-shadow: 0 1px 4px rgb(0 0 0 / 5%);
+}
+
+.strategy-style-page .thesis-header .brand-link {
+  color: var(--strategy-lime);
+  font-family: "Oswald", "Arial Narrow", sans-serif;
+  font-size: clamp(1.55rem, 2.5vw, 2rem);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  text-transform: uppercase;
+}
+
+.strategy-style-page .thesis-phone {
+  color: var(--strategy-muted);
+  font-family: "Inter", Arial, sans-serif;
+  font-size: clamp(0.78rem, 1.4vw, 0.95rem);
+}
+
+.strategy-progress {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(5, 18px);
+  justify-content: space-between;
+  width: min(calc(100% - (2 * var(--space-page))), 420px);
+  height: 18px;
+  margin: clamp(38px, 5vw, 64px) auto 0;
+}
+
+.strategy-progress-line {
+  position: absolute;
+  z-index: 0;
+  top: 8px;
+  right: 7px;
+  left: 7px;
+  height: 2px;
+  background: var(--strategy-line);
+}
+
+.strategy-progress-dot {
+  position: relative;
+  z-index: 1;
+  width: 18px;
+  height: 18px;
+  border: 3px solid var(--strategy-canvas);
+  border-radius: 50%;
+  background: var(--strategy-line);
+}
+
+.strategy-progress-dot.is-active {
+  background: var(--strategy-lime);
+}
+
+.strategy-style-page .thesis-article {
+  padding-top: clamp(34px, 5vw, 58px);
+}
+
+.strategy-style-page .thesis-hero-copy {
+  gap: clamp(14px, 2vw, 20px);
+}
+
+.strategy-style-page .thesis-eyebrow {
+  color: var(--strategy-muted);
+  font-family: "Inter", Arial, sans-serif;
+  font-size: clamp(0.76rem, 1.2vw, 0.92rem);
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.strategy-style-page .thesis-article h1 {
+  color: var(--strategy-ink);
+  font-family: "Oswald", "Arial Narrow", sans-serif;
+  font-size: clamp(2.75rem, 6.3vw, 5.1rem);
+  font-weight: 700;
+  letter-spacing: -0.035em;
+  line-height: 0.98;
+  text-transform: uppercase;
+}
+
+.strategy-style-page .thesis-title-line:last-child {
+  color: var(--strategy-lime-dark);
+}
+
+.strategy-style-page .thesis-subheadline {
+  max-width: 720px;
+  color: var(--strategy-muted);
+  font-family: "Inter", Arial, sans-serif;
+  font-size: clamp(0.94rem, 1.5vw, 1.08rem);
+  font-weight: 500;
+  line-height: 1.65;
+}
+
+.strategy-style-page .thesis-video {
+  margin-top: clamp(30px, 4vw, 48px);
+  background: var(--strategy-ink);
+  box-shadow: 0 20px 55px rgb(0 0 0 / 13%);
+}
+
+.strategy-style-page .thesis-actions .button {
+  min-width: 210px;
+  min-height: 58px;
+  padding: 15px 30px;
+  border: 0;
+  background: var(--strategy-lime);
+  box-shadow: 0 5px 0 var(--strategy-lime-dark);
+  color: var(--strategy-ink);
+  font-family: "Oswald", "Arial Narrow", sans-serif;
+  font-size: 1.08rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  transition: background-color 150ms ease, box-shadow 150ms ease, transform 150ms ease;
+}
+
+.strategy-style-page .thesis-actions .button:hover {
+  background: #c3e12f;
+  box-shadow: 0 7px 0 var(--strategy-lime-dark);
+  transform: translateY(-2px);
+}
+
+.strategy-style-page .thesis-actions .button:active {
+  box-shadow: 0 2px 0 var(--strategy-lime-dark);
+  transform: translateY(3px);
+}
+
+.strategy-style-page .thesis-actions .button:focus-visible,
+.strategy-style-page .brand-link:focus-visible {
+  outline: 3px solid var(--strategy-ink);
+  outline-offset: 4px;
+}
+
+.strategy-style-page .thesis-contact,
+.strategy-style-page .site-footer {
+  color: var(--strategy-muted);
+  font-family: "Inter", Arial, sans-serif;
+}
+
 @media (max-width: 1100px) {
   .thesis-article h1 {
     font-size: 2.55rem;
+  }
+
+  .strategy-style-page .thesis-article h1 {
+    font-size: clamp(3rem, 6.3vw, 4.35rem);
   }
 }
 
 @media (max-width: 900px) {
   .thesis-article h1 {
     font-size: 2.2rem;
+  }
+
+  .strategy-style-page .thesis-article h1 {
+    font-size: clamp(2.65rem, 7vw, 3.6rem);
   }
 }
 
@@ -569,8 +736,20 @@ textarea {
     padding: 26px var(--space-page) 0;
   }
 
+  .strategy-style-page .thesis-header {
+    padding: 16px var(--space-page);
+  }
+
   .thesis-article h1 {
     font-size: 1.72rem;
+  }
+
+  .strategy-style-page .thesis-article h1 {
+    font-size: clamp(2.4rem, 11.5vw, 4rem);
+  }
+
+  .strategy-style-page .thesis-article {
+    padding-top: 38px;
   }
 
   .page-hero {
@@ -580,5 +759,11 @@ textarea {
   .page-mark {
     justify-self: start;
     width: min(58vw, 220px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .strategy-style-page .thesis-actions .button {
+    transition: none;
   }
 }

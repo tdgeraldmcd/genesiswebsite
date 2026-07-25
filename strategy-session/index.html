@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Free 30-Minute Strategy Session | Genesis Content</title>
+    <meta
+      name="description"
+      content="Claim your free 30-minute Genesis Content growth strategy session."
+    >
+    <link rel="canonical" href="https://genesiscontent.io/strategy-session/">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Oswald:wght@500;600;700&display=swap"
+      rel="stylesheet"
+    >
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+    <header class="session-header">
+      <a class="session-brand" href="../" aria-label="Genesis Content home">
+        Genesis Content
+      </a>
+    </header>
+
+    <main class="session-main">
+      <div class="progress" aria-label="Step 1 of 10">
+        <span class="progress-line" aria-hidden="true"></span>
+        <span class="progress-dot is-active"></span>
+        <span class="progress-dot"></span>
+        <span class="progress-dot"></span>
+        <span class="progress-dot"></span>
+        <span class="progress-dot"></span>
+        <span class="progress-dot"></span>
+        <span class="progress-dot"></span>
+        <span class="progress-dot"></span>
+        <span class="progress-dot"></span>
+        <span class="progress-dot"></span>
+      </div>
+
+      <section class="session-card" id="intro-panel" aria-labelledby="session-title">
+        <p class="status-pill">Almost Complete</p>
+        <p class="wave" aria-hidden="true">👋</p>
+        <p class="service-region">Servicing clients worldwide</p>
+
+        <h1 id="session-title">Free 30-Minute Growth Strategy Session</h1>
+        <p class="session-copy">
+          Claim your 100% free, no-obligation 30-minute growth strategy call.
+          This is built for coaches, consultants, and service providers who are
+          serious about turning their ideas into demand.
+        </p>
+
+        <button class="primary-button" id="get-started" type="button">
+          <span>Get Started</span>
+          <span class="button-arrow" aria-hidden="true">→</span>
+        </button>
+
+        <p class="reviews" aria-label="Five-star client experience">
+          <span class="stars" aria-hidden="true">★★★★★</span>
+          <span>Built for ambitious thought leaders</span>
+        </p>
+      </section>
+
+      <section class="session-card question-card" id="question-panel" hidden aria-labelledby="question-title">
+        <p class="step-label">Step 1 of 10</p>
+        <h2 id="question-title">What best describes your business?</h2>
+        <div class="choice-grid">
+          <button class="choice" type="button">Coach</button>
+          <button class="choice" type="button">Consultant</button>
+          <button class="choice" type="button">Agency or service provider</button>
+          <button class="choice" type="button">Other</button>
+        </div>
+        <button class="back-button" id="go-back" type="button">← Back</button>
+      </section>
+    </main>
+
+    <footer class="session-footer">
+      <p>© 2026 Genesis Content</p>
+      <a href="../contact/">Contact</a>
+    </footer>
+
+    <script>
+      const introPanel = document.getElementById("intro-panel");
+      const questionPanel = document.getElementById("question-panel");
+      const getStarted = document.getElementById("get-started");
+      const goBack = document.getElementById("go-back");
+      const dots = document.querySelectorAll(".progress-dot");
+
+      function showQuestion() {
+        introPanel.hidden = true;
+        questionPanel.hidden = false;
+        dots[1].classList.add("is-active");
+        questionPanel.focus({ preventScroll: true });
+      }
+
+      function showIntro() {
+        questionPanel.hidden = true;
+        introPanel.hidden = false;
+        dots[1].classList.remove("is-active");
+        getStarted.focus({ preventScroll: true });
+      }
+
+      getStarted.addEventListener("click", showQuestion);
+      goBack.addEventListener("click", showIntro);
+    </script>
+  </body>
+</html>
