@@ -613,6 +613,10 @@ textarea {
   color: var(--strategy-green-text);
 }
 
+.aitl-page .thesis-title-line {
+  color: var(--strategy-green-text);
+}
+
 .strategy-style-page .thesis-subheadline {
   max-width: 720px;
   color: var(--strategy-muted);
