@@ -530,10 +530,10 @@ textarea {
   --strategy-ink: #101010;
   --strategy-muted: #5e5e5e;
   --strategy-line: #c9c9c9;
-  --strategy-lime: #b8d52b;
-  --strategy-lime-dark: #98b216;
+  --strategy-lime: #1f5a45;
+  --strategy-lime-dark: #143c2e;
   background: var(--strategy-canvas);
-  color: var(--strategy-ink);
+  color: #ffffff;
   font-family: "Inter", Arial, sans-serif;
 }
 
@@ -627,7 +627,7 @@ textarea {
 }
 
 .strategy-style-page .thesis-actions .button:hover {
-  background: #c3e12f;
+  background: #286c53;
   box-shadow: 0 7px 0 var(--strategy-lime-dark);
   transform: translateY(-2px);
 }
