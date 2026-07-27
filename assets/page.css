@@ -566,11 +566,16 @@ textarea {
 }
 
 .strategy-style-page .thesis-article {
+  width: 100%;
   padding-top: clamp(24px, 3.4vw, 38px);
+  padding-right: var(--space-page);
+  padding-left: var(--space-page);
 }
 
 .strategy-style-page .thesis-hero-copy {
+  width: 100%;
   gap: clamp(14px, 2vw, 20px);
+  justify-items: center;
 }
 
 .strategy-style-page .thesis-eyebrow {
@@ -583,7 +588,11 @@ textarea {
 }
 
 .strategy-style-page .thesis-article h1 {
-  max-width: 980px;
+  justify-self: center;
+  width: min(100%, 900px);
+  max-width: none;
+  margin-right: auto;
+  margin-left: auto;
   color: var(--strategy-ink);
   font-family: "Oswald", "Arial Narrow", sans-serif;
   font-size: clamp(2.45rem, 5.2vw, 4.35rem);
@@ -595,6 +604,7 @@ textarea {
 }
 
 .strategy-style-page .thesis-title-line {
+  width: 100%;
   white-space: normal;
 }
 
