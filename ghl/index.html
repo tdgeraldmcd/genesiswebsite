@@ -225,6 +225,7 @@
 
           button.addEventListener("click", event => {
             event.preventDefault();
+            fbq('trackCustom', 'ApplyButtonClick');
             window.location.href = buildTallyUrl(originalTallyUrl);
           });
         }
