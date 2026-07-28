@@ -613,7 +613,7 @@ textarea {
   color: var(--strategy-green-text);
 }
 
-.ghl-page .ghl-title-users {
+.strategy-style-page.ghl-page .thesis-title-line .ghl-title-users {
   color: var(--strategy-ink);
 }
 
@@ -621,7 +621,7 @@ textarea {
   color: var(--strategy-green-text);
 }
 
-.aitl-page .aitl-title-black {
+.strategy-style-page.aitl-page .aitl-title-black {
   color: var(--strategy-ink);
 }
 
