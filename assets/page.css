@@ -613,8 +613,16 @@ textarea {
   color: var(--strategy-green-text);
 }
 
+.ghl-page .ghl-title-users {
+  color: var(--strategy-ink);
+}
+
 .aitl-page .thesis-title-line {
   color: var(--strategy-green-text);
+}
+
+.aitl-page .aitl-title-black {
+  color: var(--strategy-ink);
 }
 
 .strategy-style-page .thesis-subheadline {
