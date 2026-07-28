@@ -619,10 +619,16 @@ textarea {
 
 .aitl-page .thesis-title-line {
   color: var(--strategy-green-text);
+  white-space: nowrap;
 }
 
 .strategy-style-page.aitl-page .aitl-title-black {
   color: var(--strategy-ink);
+}
+
+.strategy-style-page.aitl-page .thesis-article h1 {
+  width: min(100%, 1100px);
+  font-size: clamp(1.35rem, 5.8vw, 3.65rem);
 }
 
 .strategy-style-page .thesis-subheadline {
