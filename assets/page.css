@@ -733,21 +733,6 @@ textarea {
   justify-content: space-between;
 }
 
-.strategy-style-page.confirm-page .confirm-header .nav-links {
-  color: var(--strategy-muted);
-  font-family: "Inter", Arial, sans-serif;
-  font-size: clamp(0.72rem, 1.2vw, 0.84rem);
-  letter-spacing: 0.04em;
-}
-
-.strategy-style-page.confirm-page .confirm-header .nav-links a {
-  transition: color 150ms ease;
-}
-
-.strategy-style-page.confirm-page .confirm-header .nav-links a:hover {
-  color: var(--strategy-green-text);
-}
-
 .strategy-style-page.confirm-page main {
   display: grid;
   flex: 1;
@@ -846,11 +831,6 @@ textarea {
 
   .strategy-style-page .thesis-header {
     padding: 16px var(--space-page);
-  }
-
-  .strategy-style-page.confirm-page .confirm-header {
-    align-items: flex-start;
-    flex-direction: column;
   }
 
   .thesis-article h1 {
