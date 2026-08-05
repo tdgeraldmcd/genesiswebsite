@@ -489,6 +489,10 @@ textarea {
   margin: clamp(34px, 5vw, 64px) auto 0;
 }
 
+.strategy-style-page.bac-page .bac-calendar {
+  margin-top: clamp(18px, 2.5vw, 28px);
+}
+
 .bac-calendar iframe {
   display: block;
   width: 100%;
