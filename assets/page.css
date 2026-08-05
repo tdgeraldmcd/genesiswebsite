@@ -722,6 +722,75 @@ textarea {
   font-family: "Inter", Arial, sans-serif;
 }
 
+.strategy-style-page.confirm-page .site-shell {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+}
+
+.strategy-style-page.confirm-page .confirm-header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.strategy-style-page.confirm-page .confirm-header .nav-links {
+  color: var(--strategy-muted);
+  font-family: "Inter", Arial, sans-serif;
+  font-size: clamp(0.72rem, 1.2vw, 0.84rem);
+  letter-spacing: 0.04em;
+}
+
+.strategy-style-page.confirm-page .confirm-header .nav-links a {
+  transition: color 150ms ease;
+}
+
+.strategy-style-page.confirm-page .confirm-header .nav-links a:hover {
+  color: var(--strategy-green-text);
+}
+
+.strategy-style-page.confirm-page main {
+  display: grid;
+  flex: 1;
+  place-items: center;
+}
+
+.strategy-style-page.confirm-page .confirm-article {
+  display: grid;
+  min-height: 56vh;
+  place-items: center;
+  padding-top: clamp(64px, 10vw, 120px);
+  padding-bottom: clamp(78px, 12vw, 148px);
+}
+
+.strategy-style-page.confirm-page .confirm-article .thesis-hero-copy {
+  gap: clamp(18px, 2.5vw, 28px);
+}
+
+.strategy-style-page.confirm-page .confirm-article h1 {
+  width: min(100%, 960px);
+  font-size: clamp(3rem, 7vw, 6.2rem);
+}
+
+.strategy-style-page.confirm-page .confirm-article h1 span {
+  color: var(--strategy-green-text);
+}
+
+.strategy-style-page.confirm-page .confirm-article p {
+  max-width: 720px;
+  color: var(--strategy-muted);
+  font-family: "Inter", Arial, sans-serif;
+  font-size: clamp(0.94rem, 1.5vw, 1.08rem);
+  font-weight: 500;
+  line-height: 1.65;
+  text-align: center;
+}
+
+.strategy-style-page.confirm-page .site-footer {
+  padding-top: 24px;
+  border-top: 1px solid #e5e5e5;
+  background: var(--strategy-surface);
+}
+
 @media (max-width: 1100px) {
   .thesis-article h1 {
     font-size: 2.55rem;
@@ -777,6 +846,11 @@ textarea {
 
   .strategy-style-page .thesis-header {
     padding: 16px var(--space-page);
+  }
+
+  .strategy-style-page.confirm-page .confirm-header {
+    align-items: flex-start;
+    flex-direction: column;
   }
 
   .thesis-article h1 {
