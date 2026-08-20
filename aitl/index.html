@@ -194,7 +194,8 @@
           const button = document.getElementById("apply-button");
           if (!button) return;
 
-          button.addEventListener("click", () => {
+          button.addEventListener("click", event => {
+            event.preventDefault();
             fbq('trackCustom', 'ApplyButtonClick');
           });
         }
