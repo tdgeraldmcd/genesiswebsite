@@ -84,7 +84,13 @@
           </header>
 
           <div class="thesis-actions">
-            <a class="button" id="apply-button" href="https://tally.genesiscontent.io/r/apply">Apply Now</a>
+            <a
+              class="button"
+              id="apply-button"
+              href="https://app.iclosed.io/e/gns/thoughtleader"
+              data-iclosed-link="https://app.iclosed.io/e/gns/thoughtleader"
+              data-embed-type="popup"
+            >Apply Now</a>
           </div>
 
           <ul class="strategy-benefits">
@@ -106,6 +112,10 @@
         <p>&copy; 2026. Genesis Content</p>
       </footer>
     </div>
+
+    <!-- iClosed popup widget begin -->
+    <script type="text/javascript" src="https://app.iclosed.io/assets/widget.js" async></script>
+    <!-- iClosed popup widget end -->
 
     <script>
       (() => {
@@ -180,26 +190,21 @@
           return tallyUrl.toString();
         }
 
-        function connectTallyButton() {
+        function connectApplyButtonTracking() {
           const button = document.getElementById("apply-button");
           if (!button) return;
 
-          const originalTallyUrl = button.getAttribute("href");
-          if (!originalTallyUrl) return;
-
-          button.addEventListener("click", event => {
-            event.preventDefault();
+          button.addEventListener("click", () => {
             fbq('trackCustom', 'ApplyButtonClick');
-            window.location.href = buildTallyUrl(originalTallyUrl);
           });
         }
 
         saveAttribution();
 
         if (document.readyState === "loading") {
-          document.addEventListener("DOMContentLoaded", connectTallyButton);
+          document.addEventListener("DOMContentLoaded", connectApplyButtonTracking);
         } else {
-          connectTallyButton();
+          connectApplyButtonTracking();
         }
       })();
     </script>
