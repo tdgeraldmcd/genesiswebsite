@@ -84,13 +84,13 @@
           </header>
 
           <div class="thesis-actions">
-            <a
+            <button
               class="button"
               id="apply-button"
-              href="https://app.iclosed.io/e/gns/thoughtleader"
+              type="button"
               data-iclosed-link="https://app.iclosed.io/e/gns/thoughtleader"
               data-embed-type="popup"
-            >Apply Now</a>
+            >Apply Now</button>
           </div>
 
           <ul class="strategy-benefits">
@@ -194,8 +194,7 @@
           const button = document.getElementById("apply-button");
           if (!button) return;
 
-          button.addEventListener("click", event => {
-            event.preventDefault();
+          button.addEventListener("click", () => {
             fbq('trackCustom', 'ApplyButtonClick');
           });
         }
