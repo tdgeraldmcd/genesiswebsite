@@ -347,6 +347,29 @@ textarea {
   text-underline-offset: 4px;
 }
 
+.about-copy .social-icon-link {
+  display: inline-flex;
+  padding: 2px;
+  text-decoration: none;
+  transition: color 150ms ease, transform 150ms ease;
+}
+
+.about-copy .social-icon-link:hover {
+  color: var(--color-green);
+  transform: translateY(-1px);
+}
+
+.about-copy .social-icon-link:focus-visible {
+  outline: 2px solid currentcolor;
+  outline-offset: 4px;
+}
+
+.social-icon {
+  width: 28px;
+  height: 28px;
+  fill: currentcolor;
+}
+
 .about-copy p + p {
   margin-top: 18px;
 }
