@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="A cinematic, scroll-driven Genesis Content concept experience.">
+    <title>Webinar Wars — Genesis Content</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=JetBrains+Mono:wght@400;500;600&family=News+Cycle:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+  </head>
+
+  <body>
+    <a class="skip-link" href="#story">Skip the opening sequence</a>
+
+    <main>
+      <section class="opening" aria-label="Webinar Wars opening story">
+        <div class="opening-stage">
+          <p class="transmission">An urgent message for webinar marketers...</p>
+
+          <img
+            class="title-lockup"
+            src="../assets/webinar-wars-transparent.png"
+            alt="Webinar Wars"
+          >
+
+          <div class="crawl-window">
+            <div class="crawl-copy">
+              <p>It has begun.</p>
+              <p>Meta’s average price per ad increased 12% year over year in Q2 2026.</p>
+              <p>U.S. digital ad revenue is projected to approach $400 billion in 2026, setting a new record high.</p>
+              <p class="crawl-highlight">Entrepreneurs are fighting against ballooning CPAs, fierce competition and struggling to maintain relevance in the age of AI…</p>
+              <p>Meanwhile, the top 1-3% of online earners are often collecting 60-90% of the sales, following a power law.</p>
+              <p class="crawl-highlight">The market is becoming a game of winner-take-all.</p>
+              <p>And the gap between winners and losers is widening with time as time marches on…</p>
+              <p>These facts point to a devastating reality: some entrepreneurs are not only missing out on potential business, they are beginning to lose hope.</p>
+              <p>But now, thanks to a small group of webinar jedi, the balance in the universe may restore to order.</p>
+              <p class="crawl-highlight">Their only hope is to use an ancient and powerful communication secret <span class="crawl-gold">that dates back to the dawn of human civilization…</span></p>
+            </div>
+          </div>
+
+          <a class="scroll-cue" href="#story">
+            <span>Scroll to begin</span>
+            <span class="chevron" aria-hidden="true">↓</span>
+          </a>
+        </div>
+      </section>
+
+      <section class="chapter buyer-section" id="story" aria-labelledby="story-title">
+        <div class="chapter-copy reveal">
+          <p class="buyer-tagline buyer-introducing">Introducing</p>
+          <h2 class="story-title-art" id="story-title">
+            <img src="../assets/buyer-force-title-v2.png" alt="The Buyer Force">
+          </h2>
+          <p class="buyer-tagline">Marketing Maxims that Generate Buyers with the Power of Your Words</p>
+          <a class="buyer-cta" href="../thesis/apply/">Get The Buyer Force <span aria-hidden="true">↗</span></a>
+          <p>Stop wasting ad spend. <strong>Start scaling faster.</strong> Lower CPAs and <strong><em>Skyrocket your LTV.</em></strong></p>
+          <p>The secrets inside the buyer force show you how to blend entertainment and education to <strong><em>drive conversions</em></strong> like nothing you’ve ever seen before.</p>
+          <p class="buyer-discover-heading"><strong>Inside, you will discover:</strong></p>
+          <ul class="buyer-discoveries">
+            <li><strong>What causes entrepreneurs to ruin stories, and what to do instead…</strong></li>
+            <li><strong>Jedi Mind Control Secrets: the step-by-step process that ethically forces anyone who can be sold to buy… and then <em>thank you for it.</em></strong></li>
+            <li><strong>Five stories every high-converting webinar or VSL needs to have in its arsenal.</strong></li>
+            <li><strong>What you must do if you are in a crowded, sophisticated market.</strong></li>
+            <li><strong>And more...</strong></li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="finale" aria-labelledby="finale-title">
+        <div class="finale-copy reveal">
+          <p class="finale-subheadline finale-opening" id="finale-title">Ready to scale further and faster?</p>
+          <p class="finale-subheadline">Step into the subconscious mind of your ideal customer, incept any message you desire, and profit beyond your wildest imagination...</p>
+          <a class="cta" href="../thesis/apply/">Get the Buyer Force <span aria-hidden="true">↗</span></a>
+        </div>
+        <p class="colophon">Genesis Content · New York City · Est. 2026</p>
+      </section>
+    </main>
+
+    <script>
+      const root = document.documentElement;
+      const opening = document.querySelector('.opening');
+      const crawlCopy = document.querySelector('.crawl-copy');
+      const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+      function updateScroll() {
+        const crawlMax = Math.max(1, opening.offsetHeight - window.innerHeight);
+        const crawlProgress = Math.min(1, Math.max(0, window.scrollY / crawlMax));
+        const copyStart = .28;
+        const copyProgress = Math.min(1, Math.max(0, (crawlProgress - copyStart) / (1 - copyStart)));
+        const copyStartY = window.innerHeight * (window.innerWidth <= 720 ? .72 : .68);
+        const copyEndY = window.innerHeight * .045 - crawlCopy.scrollHeight;
+        const copyY = copyStartY + (copyEndY - copyStartY) * copyProgress;
+        const copyOpacity = Math.min(1, Math.max(0, (crawlProgress - copyStart) / .025));
+        const titleOpacity = Math.max(0, Math.min(1, 1 - Math.abs(crawlProgress - .18) * 10));
+        const titleScale = Math.max(.04, 1.6 - crawlProgress * 5);
+        const openingOpacity = 1 - Math.min(1, Math.max(0, (crawlProgress - .94) / .06));
+        root.style.setProperty('--crawl-progress', crawlProgress);
+        root.style.setProperty('--copy-progress', copyProgress);
+        root.style.setProperty('--title-opacity', titleOpacity);
+        root.style.setProperty('--title-scale', titleScale);
+        crawlCopy.style.opacity = copyOpacity;
+        crawlCopy.style.transform = `translateY(${copyY}px)`;
+        opening.style.opacity = openingOpacity;
+      }
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) entry.target.classList.add('is-visible');
+        });
+      }, { threshold: 0.2 });
+
+      document.querySelectorAll('.reveal').forEach((item) => observer.observe(item));
+
+      if (!reducedMotion.matches) {
+        window.addEventListener('scroll', updateScroll, { passive: true });
+        window.addEventListener('resize', updateScroll);
+        updateScroll();
+      } else {
+        document.querySelectorAll('.reveal').forEach((item) => item.classList.add('is-visible'));
+      }
+    </script>
+  </body>
+</html>
