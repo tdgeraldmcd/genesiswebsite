@@ -3,3 +3,21 @@
 @media(min-width:1500px){.hero{padding-top:85px}}
 @media(max-width:760px){.wrap{width:calc(100% - 40px)}.masthead{height:78px}.brand{font-size:18px}.header-note{font-size:9px;max-width:118px;line-height:1.5}.header-note>span{flex-shrink:0}.hero{padding-block:49px 52px}h1{font-size:clamp(36px,6.9vw,51px)}.hero-subtitle{font-size:14px;max-width:380px;margin:21px auto 27px}.video-placeholder{margin-bottom:24px}.video-corner{top:14px;left:15px;font-size:8px}.video-bottom{font-size:6px;bottom:13px}.video-label{font-size:12px;gap:6px}.video-label small{font-size:10px}.video-icon{width:43px;height:43px;margin-bottom:3px}.section{padding-block:52px}.problem,.section-heading,.faq{grid-template-columns:1fr;gap:24px}h2{font-size:40px}.problem p:not(.eyebrow){font-size:15px;margin-top:20px}.offer-inner{padding-block:38px}.offer-heading{margin-bottom:30px;gap:12px}.offer-tag{font-size:7px;padding:7px}.offer h2{font-size:42px}.offer-intro{font-size:14px}.offer-intro br{display:none}.conditions{grid-template-columns:1fr;gap:23px;margin-top:30px;padding-block:26px}.condition,.condition+.condition{padding:0 0 0 39px;border:0}.check{position:absolute;left:0;top:2px}.condition h3{font-size:21px}.condition p{max-width:none;margin-top:7px}.guarantee-line{gap:10px;align-items:flex-start}.guarantee-line p{font-size:15px;line-height:1.6}.guarantee-note{font-size:10px;padding-top:5px}.mobile-break{display:block}.steps{grid-template-columns:1fr 1fr;gap:30px 24px;margin-top:31px}.steps h3{margin-top:15px}.steps p{font-size:13px}.faq h2{margin-top:17px}.faq{gap:30px}.final-cta{padding:54px 20px}.final-cta h2{font-size:38px}.footer{gap:20px}.footer>span:last-child{font-size:9px}}
 @media(prefers-reduced-motion:reduce){.button{transition:none}.button:hover{transform:none}}
+
+/* Client publication logos: native scrolling supports touch, trackpad and keyboard. */
+.featured{margin-top:48px;padding-top:28px;border-top:1px solid var(--line)}
+.featured h2{font-family:var(--sans);font-size:11px;font-weight:600;line-height:1.5;letter-spacing:.1em;color:var(--muted)}
+.featured-scroll{overflow-x:auto;overscroll-behavior-x:contain;scroll-snap-type:x proximity;scrollbar-width:thin;scrollbar-color:#a9afa1 transparent;margin-top:20px;padding-bottom:14px}
+.featured-scroll:focus-visible{outline:2px solid var(--orange);outline-offset:5px;border-radius:3px}
+.featured-scroll::-webkit-scrollbar{height:5px}
+.featured-scroll::-webkit-scrollbar-track{background:var(--line);border-radius:5px}
+.featured-scroll::-webkit-scrollbar-thumb{background:#a9afa1;border-radius:5px}
+.featured-logos{display:flex;align-items:center;gap:40px;width:max-content;list-style:none;margin:0;padding:6px 10px 14px}
+.featured-logo{display:flex;align-items:center;justify-content:center;flex:0 0 160px;height:52px;scroll-snap-align:start}
+.featured-logo img{display:block;width:160px;height:48px;object-fit:contain;filter:grayscale(1);mix-blend-mode:multiply;opacity:.75}
+.featured-logo--success img{filter:brightness(0)}
+.featured-logo--inc{flex-basis:100px}.featured-logo--inc img{width:85px}
+.featured-logo--cnbc{flex-basis:100px}.featured-logo--cnbc img{width:75px}
+.featured-logo--forbes img{width:126px}
+.featured-logo--huffington{flex-basis:210px}.featured-logo--huffington img{width:210px}
+@media(max-width:760px){.featured{margin-top:36px;padding-top:24px}.featured-scroll{margin-top:15px}.featured-logos{gap:30px}.featured-logo{flex-basis:140px}.featured-logo img{max-width:140px;height:42px}.featured-logo--inc,.featured-logo--cnbc{flex-basis:85px}.featured-logo--huffington{flex-basis:190px}.featured-logo--huffington img{max-width:190px}}
