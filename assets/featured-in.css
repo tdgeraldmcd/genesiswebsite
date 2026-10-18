@@ -68,6 +68,8 @@
   opacity: .8;
 }
 .press-logo--success img { filter: brightness(0); }
+/* Keep a backdrop inside the animated track for the white logo matte to blend into. */
+.press-logo--entrepreneur { background: #eee9de; }
 .press-logo--inc, .press-logo--cnbc { flex-basis: 100px; width: 100px; }
 .press-logo--inc img { width: 85px; }
 .press-logo--cnbc img { width: 75px; }
