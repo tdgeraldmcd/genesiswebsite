@@ -13,4 +13,10 @@
       if (Array.isArray(window.dataLayer)) window.dataLayer.push({ event: 'content_compass_offer_click' });
     });
   });
+  document.querySelectorAll('.checkout-button').forEach(link => {
+    link.addEventListener('click', () => {
+      if (typeof window.fbq === 'function') window.fbq('track', 'InitiateCheckout', { value: 4.95, currency: 'USD', content_name: 'The Content Compass' });
+      if (Array.isArray(window.dataLayer)) window.dataLayer.push({ event: 'begin_checkout', ecommerce: { currency: 'USD', value: 4.95, items: [{ item_id: 'content-compass', item_name: 'The Content Compass', price: 4.95, quantity: 1 }] } });
+    });
+  });
 })();
