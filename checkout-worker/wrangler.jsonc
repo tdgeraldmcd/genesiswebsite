@@ -1,0 +1,27 @@
+{
+  "name": "genesis-content-checkout",
+  "main": "worker.mjs",
+  "compatibility_date": "2026-10-27",
+  "vars": {
+    "SITE_ORIGIN": "https://genesiscontent.io",
+    "STRIPE_PRICE_ID": "price_1UVInACW5UYfW04o5cFsr4YI",
+    "STRIPE_PUBLISHABLE_KEY": "pk_live_51H7ApzCW5UYfW04otfaxrY2yAIca1VXA19LYtvDZjrFnG7KHta7NkdBczDGA2QVRRJARx16rnZ5k9gEZs4MIONkS00iIJqHeIm"
+  },
+  "account_id": "d790632d189381078ab7fadb118d0fe8",
+  "kv_namespaces": [
+    {
+      "binding": "ORDERS",
+      "id": "d2f38fd5872f49c894af9b8f7f4e49a0"
+    }
+  ],
+  "ratelimits": [
+    {
+      "name": "CHECKOUT_LIMITER",
+      "namespace_id": "495",
+      "simple": {
+        "limit": 10,
+        "period": 60
+      }
+    }
+  ]
+}
