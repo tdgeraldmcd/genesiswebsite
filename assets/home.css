@@ -1,0 +1,10 @@
+.hero-next{font-size:.82em}
+.email-signup{width:min(560px,100%);margin-inline:auto;text-align:left}
+.email-label{display:block;margin-bottom:8px;font-size:13px;font-weight:500}
+.email-signup-fields{display:flex;gap:10px}
+.email-signup input{min-width:0;flex:1;padding:17px 18px;border:1px solid var(--line);border-radius:3px;background:#fffaf5;color:var(--ink);font:inherit;font-size:16px}
+.email-signup input::placeholder{color:var(--muted);opacity:1}
+.email-signup .button{margin:0;gap:24px;font-family:inherit;cursor:pointer}
+.email-signup input:focus-visible,.email-signup button:focus-visible{outline:3px solid var(--orange);outline-offset:3px}
+.final-cta .email-signup{margin-top:30px}
+@media(max-width:480px){.email-signup-fields{flex-direction:column}.email-signup .button{justify-content:center}.email-signup input{width:100%}}

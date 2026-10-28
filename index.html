@@ -29,6 +29,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;450;500;550;600;650;700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/offer/style.css">
+  <link rel="stylesheet" href="/assets/home.css">
   <!-- Google Tag Manager -->
     <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
     new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
@@ -51,14 +52,20 @@
   </header>
   <main id="main">
     <section class="hero wrap" aria-labelledby="hero-title">
-      <h1 id="hero-title">We book qualified sales calls.<br><em>You only pay when they show.</em></h1>
+      <h1 id="hero-title">Grow a $1M+ Per Year Expert Business<br><span class="hero-next">(or Add Your Next $1M) Through</span><br><em>Thought Leadership Content</em></h1>
       <p class="hero-subtitle">Done-for-you cold email outreach that brings the right buyers to your calendar.</p>
       <div class="video-placeholder" role="img" aria-label="Video embed placeholder. No video has been added.">
         <span class="video-corner" aria-hidden="true">GENESIS / THE OFFER</span>
         <div class="video-label"><span class="video-icon" aria-hidden="true"><svg viewBox="0 0 32 32" fill="none"><rect x="4" y="8" width="17" height="16" rx="3"/><path d="m21 13 7-4v14l-7-4"/></svg></span><span>Video embed placeholder</span><small>Video will be added here.</small></div>
         <span class="video-bottom" aria-hidden="true">THE WORK IS OURS. THE NEXT CONVERSATION IS YOURS.</span>
       </div>
-      <button class="button booking-button" type="button" data-iclosed-link="https://app.iclosed.io/e/gns/thoughtleader" data-embed-type="popup" aria-haspopup="dialog">Book a call <span aria-hidden="true">↗</span></button>
+      <form class="email-signup" aria-label="Email signup" onsubmit="event.preventDefault()">
+        <label class="email-label" for="hero-email">Email address</label>
+        <div class="email-signup-fields">
+          <input id="hero-email" name="email" type="email" autocomplete="email" placeholder="Enter your email address" required>
+          <button class="button" type="submit">Submit <span aria-hidden="true">↗</span></button>
+        </div>
+      </form>
     </section>
 
     <section class="press-band" aria-labelledby="press-title">
@@ -136,12 +143,16 @@
 
     <section class="final-cta" aria-labelledby="final-title">
       <h2 id="final-title">We book qualified sales calls.<br><em>You only pay when they show.</em></h2>
-      <button class="button booking-button" type="button" data-iclosed-link="https://app.iclosed.io/e/gns/thoughtleader" data-embed-type="popup" aria-haspopup="dialog">Book a call <span aria-hidden="true">↗</span></button>
+      <form class="email-signup" aria-label="Email signup" onsubmit="event.preventDefault()">
+        <label class="email-label" for="footer-email">Email address</label>
+        <div class="email-signup-fields">
+          <input id="footer-email" name="email" type="email" autocomplete="email" placeholder="Enter your email address" required>
+          <button class="button" type="submit">Submit <span aria-hidden="true">↗</span></button>
+        </div>
+      </form>
     </section>
   </main>
   <footer class="wrap footer"><span class="brand">genesis<span class="brand-light">content</span></span><span>© 2026 Genesis Content</span></footer>
-  <!-- iClosed popup widget begin -->
-  <script src="https://app.iclosed.io/assets/widget.js" async></script>
-  <!-- iClosed popup widget end -->
+
 </body>
 </html>
