@@ -20,7 +20,7 @@ The browser integration uses Stripe's embedded Checkout. The Worker pins Stripe 
 
 ## Funnel decision
 
-The user plans an upsell at `/us` and explicitly deferred funnel mapping. Leave `successPath` empty until `/us` exists; then set it to `/us`. Do not automatically send purchasers directly to interview booking. Guide delivery and automated fulfillment remain pending the user's funnel decisions. Successful payment currently shows a confirmation message.
+The local preview funnel is `/us` ($97 webinar) → `/accelerator` on accept, or `/ds` ($47 webinar without Q&A) on decline. Both downsell choices lead to `/accelerator`. All accelerator choices lead to `https://app.iclosed.io/e/gns/thoughtleader`. These are navigation-only placeholders: no payments, enrollment, or email delivery occur. Keep `successPath` empty until the real upsell payment and fulfillment integration is ready and the funnel is approved for activation. Successful Content Compass payment currently shows a confirmation message.
 
 ## Verification
 
