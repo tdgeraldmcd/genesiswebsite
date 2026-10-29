@@ -1,3 +1,5 @@
+.hero h1{font-family:'Be Vietnam Pro',Arial,sans-serif;font-weight:900;line-height:1.15;letter-spacing:-.035em}
+.hero h1 em{font-style:normal;font-weight:inherit}
 .hero-next{font-size:.82em}
 .email-signup{width:min(560px,100%);margin-inline:auto;text-align:left}
 .email-label{display:block;margin-bottom:8px;font-size:13px;font-weight:500}
