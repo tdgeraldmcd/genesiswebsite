@@ -33,3 +33,7 @@
 
 #order{display:flow-root;scroll-margin-top:-30px}
 #order .checkout-status:first-child{margin-top:0}
+
+.hero .hero-subtitle{font-size:24px;line-height:1.6}
+.hero .hero-offer{font-size:26px!important}
+@media(max-width:640px){.hero .hero-subtitle{font-size:20px}.hero .hero-offer{font-size:22px!important}}

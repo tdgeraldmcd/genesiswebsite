@@ -15,3 +15,6 @@
 .gerald-bio>p:not(.eyebrow){margin-top:24px;max-width:560px;color:var(--muted);font-size:16px;line-height:1.8}
 @media(max-width:760px){.about-gerald{grid-template-columns:1fr;gap:30px}.gerald-portrait{max-width:360px}.gerald-bio>p:not(.eyebrow){font-size:15px}}
 @media(max-width:480px){.email-signup-fields{flex-direction:column}.email-signup .button{justify-content:center}.email-signup input{width:100%}}
+
+.hero-subtitle{font-size:24px;line-height:1.6}
+@media(max-width:760px){.hero-subtitle{font-size:20px;max-width:560px}}

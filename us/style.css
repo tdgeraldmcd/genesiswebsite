@@ -4,3 +4,6 @@
 a.decline{text-align:center;width:fit-content}.payment-alternative{border-top:1px solid var(--line);margin-top:26px;padding-top:23px}.payment-alternative>strong{display:block;font-size:14px}.payment-alternative>p{font-size:11px;color:var(--muted);margin:6px 0 16px}.payment-alternative .button{width:100%;font-size:13px;margin-bottom:18px}.order-card .small{font-size:13px;color:var(--muted)}
 
 .hero h1{font-family:'Be Vietnam Pro',Arial,sans-serif;font-weight:900;line-height:1.15;letter-spacing:-.035em}
+
+.hero-intro{font-size:24px;line-height:1.6;max-width:900px}
+@media(max-width:640px){.hero-intro{font-size:20px}}
