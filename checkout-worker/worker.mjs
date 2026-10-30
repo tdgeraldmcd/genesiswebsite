@@ -1,4 +1,5 @@
 // Cloudflare Worker. Configure secrets in Cloudflare, never in this repository.
+import { limitAcceleratorBilling } from './accelerator-billing.mjs';
 export default {
   async fetch(request, env) {
     const path = new URL(request.url).pathname;
@@ -80,6 +81,7 @@ async function receiveWebhook(request, env) {
     const event = JSON.parse(raw);
     if (!['checkout.session.completed','checkout.session.async_payment_succeeded','checkout.session.async_payment_failed'].includes(event.type)) return new Response('OK');
     const session = event.data.object;
+    if (event.type !== 'checkout.session.async_payment_failed' && await limitAcceleratorBilling(session, env)) return new Response('OK');
     if (session.metadata?.offer !== 'content-compass') return new Response('OK');
     if (session.payment_status === 'paid' && session.amount_total === 495 && session.currency === 'usd') {
       // Repeated deliveries write the same order key; no duplicate emails or bookings.

@@ -25,7 +25,7 @@
     if (!result.paid) { status.textContent = 'Your payment is not confirmed yet. Check your Stripe receipt or contact (914) 455-0381 before paying again.'; return; }
     completed = true; instance?.destroy(); root.hidden = true; fallback.hidden = true;
     status.textContent = 'Payment confirmed. Thank you for purchasing The Content Compass.';
-    // Enable only when the planned /us upsell page has been created and checked.
+    // Continue the funnel only after the backend confirms payment.
     if (window.genesisCheckout.successPath === '/us') location.assign('/us');
   }
   async function start() {
