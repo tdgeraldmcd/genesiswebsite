@@ -7,3 +7,6 @@ a.decline{text-align:center;width:fit-content}.payment-alternative{border-top:1p
 
 .hero-intro{font-size:24px;line-height:1.6;max-width:900px}
 @media(max-width:640px){.hero-intro{font-size:20px}}
+
+.button.purchase{font-size:20px;line-height:1.4;text-align:center;max-width:100%}
+@media(max-width:640px){.button.purchase{font-size:18px}}
