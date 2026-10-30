@@ -11,15 +11,15 @@ class Element {
  removeAttribute(k){delete this.attrs[k]}
 }
 async function page({api,token='token',enabled=true,confirm=async()=>({})}={}) {
- const purchase=new Element();const redirects=[];const requests=[];let confirms=0;
+ const purchase=new Element();const second=new Element();const redirects=[];const requests=[];let confirms=0;
  const context={window:{genesisFunnel:{enabled,token:()=>token,consentVersion:'2026-10-30-v1',
   api:async(action,input)=>{requests.push([action,input]);if(api)return api(action,input);return action==='summary'?{ready:true,card:{brand:'visa',last4:'4242'}}:{status:'not_started'}},
   stripe:async()=>({confirmCardPayment:async secret=>{confirms++;return confirm(secret)}})}},
-  document:{body:{dataset:{upsell:'us'}},querySelector:()=>purchase,createElement:()=>new Element()},
+  document:{body:{dataset:{upsell:'us'}},querySelectorAll:()=>[purchase,second],createElement:()=>new Element()},
   location:{assign:url=>redirects.push(url)}};
  await vm.runInNewContext(source,context);
- async function click(){let prevented=false;await purchase.events.click?.({preventDefault(){prevented=true}});return prevented}
- return {purchase,redirects,requests,click,get confirms(){return confirms}};
+ async function click(target=purchase){let prevented=false;await target.events.click?.({preventDefault(){prevented=true}});return prevented}
+ return {purchase,second,redirects,requests,click,get confirms(){return confirms}};
 }
 test('loading an upsell page never creates a purchase',async()=>{const p=await page();assert.deepEqual(p.requests.map(r=>r[0]),['summary','status']);assert.equal(p.redirects.length,0)});
 test('explicit acceptance sends fixed offer and redirects only on success',async()=>{
@@ -29,7 +29,7 @@ test('explicit acceptance sends fixed offer and redirects only on success',async
 test('double clicking during a pending request sends one purchase',async()=>{
  let release;const pending=new Promise(r=>release=r);
  const p=await page({api:async action=>action==='summary'?{ready:true,card:{brand:'visa',last4:'4242'}}:action==='purchase'?pending:{status:'not_started'}});
- const first=p.click();await p.click();release({status:'processing'});await first;assert.equal(p.requests.filter(r=>r[0]==='purchase').length,1);
+ const first=p.click();await p.click(p.second);release({status:'processing'});await first;assert.equal(p.requests.filter(r=>r[0]==='purchase').length,1);
 });
 test('required bank verification is completed before final payment status check',async()=>{
  let purchased=false;
