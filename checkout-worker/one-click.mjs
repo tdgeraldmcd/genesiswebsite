@@ -55,6 +55,9 @@ export class Funnel {
     else {
       session = await this.stripe.checkout.sessions.create({
         customer: record.customer, mode: 'payment', ui_mode: 'embedded_page',
+        // This consent flow promises card reuse. Other payment methods remain
+        // available through the separate regular-checkout link.
+        allowed_payment_method_types: ['card'],
         line_items: [{ price: this.env.STRIPE_PRICE_ID, quantity: 1 }],
         payment_intent_data: { setup_future_usage: 'off_session', metadata: { genesis_funnel: this.id, offer: 'content-compass' } },
         metadata: { genesis_funnel: this.id, offer: 'content-compass', consent_version: CONSENT_VERSION },

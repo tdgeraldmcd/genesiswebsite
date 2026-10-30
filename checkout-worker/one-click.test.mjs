@@ -25,6 +25,7 @@ const start = f=>f.funnel.start({consent:true,consentVersion:CONSENT_VERSION});
 test('save consent is explicit and versioned; no consent cannot create checkout',async()=>{
  const f=fixture();await assert.rejects(f.funnel.start({consent:false}),/agree/);assert.equal(f.calls.length,0);
  await start(f);const params=f.calls.find(c=>c[0]==='checkout')[1];assert.equal(params.payment_intent_data.setup_future_usage,'off_session');assert.equal(params.customer,'cus_mock');assert.equal(params.line_items[0].price,'price_initial');
+ assert.deepEqual(params.allowed_payment_method_types,['card']);
  await start(f);assert.equal(f.calls.filter(c=>c[0]==='checkout').length,1);
 });
 test('unpaid, wrong amount, and customer mismatch cannot charge a saved card',async()=>{

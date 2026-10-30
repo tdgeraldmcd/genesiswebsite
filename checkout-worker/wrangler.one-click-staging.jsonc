@@ -1,19 +1,19 @@
 {
   "name": "genesis-one-click-staging",
-  "main": "worker.mjs",
+  "main": "one-click-staging.generated.mjs",
   "compatibility_date": "2026-10-27",
   "preview_urls": false,
   "observability": {
     "enabled": true
   },
   "vars": {
-    "SITE_ORIGIN": "http://localhost:8765",
-    "ONE_CLICK_ENABLED": "false",
-    "STRIPE_PRICE_ID": "REPLACE_WITH_SANDBOX_INITIAL_PRICE",
-    "UPSELL_PRICE_ID": "REPLACE_WITH_SANDBOX_WEBINAR_PRICE",
-    "DOWNSELL_PRICE_ID": "REPLACE_WITH_SANDBOX_DOWNSELL_PRICE",
-    "ACCELERATOR_PRICE_ID": "REPLACE_WITH_SANDBOX_ACCELERATOR_PRICE",
-    "STRIPE_PUBLISHABLE_KEY": "REPLACE_WITH_SANDBOX_PUBLISHABLE_KEY",
+    "SITE_ORIGIN": "https://genesis-one-click-staging.xecvtive.workers.dev",
+    "ONE_CLICK_ENABLED": "true",
+    "STRIPE_PRICE_ID": "price_1UVJp8CW5UYfW04oJHWi2UXH",
+    "UPSELL_PRICE_ID": "price_1UWLMUCW5UYfW04oTknGhTSx",
+    "DOWNSELL_PRICE_ID": "price_1UWLMWCW5UYfW04ofL1reren",
+    "ACCELERATOR_PRICE_ID": "price_1UWLMYCW5UYfW04osq9W5kxM",
+    "STRIPE_PUBLISHABLE_KEY": "pk_test_51H7ApzCW5UYfW04otn7w2lvcgcz9Wdo23qeXaKzdj6m0gXtVCl2hs5sNp4KRPcgm2P9Bgkh52UOwbbJCgdR7gryg002bVIXMDx",
     "STRIPE_MODE": "test"
   },
   "durable_objects": {
