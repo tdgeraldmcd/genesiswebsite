@@ -5,6 +5,7 @@
   "preview_urls": false,
   "observability": { "enabled": true, "logs": { "enabled": true } },
   "vars": {
+    "ONE_CLICK_ENABLED": "false",
     "SITE_ORIGIN": "https://genesiscontent.io",
     "ACCELERATOR_PAYMENT_LINK_ID": "plink_1UWKY9CW5UYfW04obQbXLD2p",
     "ACCELERATOR_PRICE_ID": "price_1UVrWQCW5UYfW04oh2v25Mnh",
@@ -12,6 +13,8 @@
     "STRIPE_PUBLISHABLE_KEY": "pk_live_51H7ApzCW5UYfW04otfaxrY2yAIca1VXA19LYtvDZjrFnG7KHta7NkdBczDGA2QVRRJARx16rnZ5k9gEZs4MIONkS00iIJqHeIm"
   },
   "account_id": "d790632d189381078ab7fadb118d0fe8",
+  "durable_objects": { "bindings": [{ "name": "FUNNEL_SESSIONS", "class_name": "FunnelSession" }] },
+  "migrations": [{ "tag": "one-click-v1", "new_sqlite_classes": ["FunnelSession"] }],
   "kv_namespaces": [
     {
       "binding": "ORDERS",

@@ -1,6 +1,8 @@
 <!doctype html>
 <html lang="en">
 <head>
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; script-src 'self'  https://*.stripe.com https://*.link.com https://www.googletagmanager.com https://connect.facebook.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; media-src 'self'; frame-src https://*.stripe.com https://*.link.com https://www.googletagmanager.com; connect-src 'self' https://*.stripe.com https://*.link.com https://genesis-content-checkout.xecvtive.workers.dev https://genesis-one-click-staging.xecvtive.workers.dev https://www.facebook.com https://*.google-analytics.com https://www.googletagmanager.com; form-action 'self' https://*.stripe.com">
+<meta name="referrer" content="strict-origin-when-cross-origin">
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="robots" content="noindex, nofollow">
@@ -12,7 +14,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@900&family=DM+Sans:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="./style.css?v=20261030-subheadlines">
 </head>
-<body>
+<body data-upsell="us">
   <a class="skip" href="#main">Skip to content</a>
     <header class="masthead wrap">
     <div class="brand" aria-label="Genesis Content"><b>g.</b> genesis<span>content</span></div>
@@ -96,5 +98,8 @@
     </div></section>
   </main>
   <footer class="wrap"><div class="brand"><b>g.</b> genesis<span>content</span></div><p>Thought leadership. With a direction.</p><small>© Genesis Content</small></footer>
+<script src="/free/checkout-config.js?v=20261030-oneclick" defer></script>
+<script src="/assets/funnel-client.js?v=20261030-oneclick" defer></script>
+<script src="/assets/one-click-upsell.js?v=20261030-oneclick" defer></script>
 </body>
 </html>

@@ -1,5 +1,8 @@
 // Cloudflare Worker. Configure secrets in Cloudflare, never in this repository.
 import { limitAcceleratorBilling } from './accelerator-billing.mjs';
+import { funnelRoute } from './one-click.mjs';
+import { processFunnelEvent } from './funnel-events.mjs';
+export { FunnelSession } from './one-click.mjs';
 export default {
   async fetch(request, env) {
     const path = new URL(request.url).pathname;
@@ -10,8 +13,16 @@ export default {
     if (origin === allowed) headers['Access-Control-Allow-Origin'] = allowed;
     const reply = (data, status = 200) => new Response(JSON.stringify(data), { status, headers });
     if (origin !== allowed) return reply({ error: 'Origin not allowed' }, 403);
-    if (request.method === 'OPTIONS') return new Response(null, { status: 204, headers: { ...headers, 'Access-Control-Allow-Methods': 'POST, OPTIONS', 'Access-Control-Allow-Headers': 'Content-Type' } });
+    if (request.method === 'OPTIONS') return new Response(null, { status: 204, headers: { ...headers, 'Access-Control-Allow-Methods': 'POST, OPTIONS', 'Access-Control-Allow-Headers': 'Content-Type, Authorization' } });
     if (request.method !== 'POST') return reply({ error: 'Method not allowed' }, 405);
+    if (path.startsWith('/funnel/')) {
+      if (env.CHECKOUT_LIMITER) {
+        const { success } = await env.CHECKOUT_LIMITER.limit({key: request.headers.get('CF-Connecting-IP') || 'unknown'});
+        if (!success) return reply({error:'Please wait a minute before trying again.'},429);
+      }
+      const response = await funnelRoute(request, env);
+      return new Response(response.body, {status:response.status, headers});
+    }
     if (!env.STRIPE_SECRET_KEY || !env.STRIPE_PUBLISHABLE_KEY || !env.STRIPE_PRICE_ID) return reply({ error: 'Checkout unavailable' }, 503);
     const stripe = async (endpoint, body) => {
       const response = await fetch(`https://api.stripe.com/v1/${endpoint}`, {
@@ -79,6 +90,7 @@ async function receiveWebhook(request, env) {
     }
     if (!verified) return new Response('Invalid signature', {status:400});
     const event = JSON.parse(raw);
+    if (await processFunnelEvent(event, env)) return new Response('OK');
     if (!['checkout.session.completed','checkout.session.async_payment_succeeded','checkout.session.async_payment_failed'].includes(event.type)) return new Response('OK');
     const session = event.data.object;
     if (event.type !== 'checkout.session.async_payment_failed' && await limitAcceleratorBilling(session, env)) return new Response('OK');

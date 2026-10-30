@@ -1,0 +1,52 @@
+{
+  "name": "genesis-one-click-staging",
+  "main": "worker.mjs",
+  "compatibility_date": "2026-10-27",
+  "preview_urls": false,
+  "observability": {
+    "enabled": true
+  },
+  "vars": {
+    "SITE_ORIGIN": "http://localhost:8765",
+    "ONE_CLICK_ENABLED": "false",
+    "STRIPE_PRICE_ID": "REPLACE_WITH_SANDBOX_INITIAL_PRICE",
+    "UPSELL_PRICE_ID": "REPLACE_WITH_SANDBOX_WEBINAR_PRICE",
+    "DOWNSELL_PRICE_ID": "REPLACE_WITH_SANDBOX_DOWNSELL_PRICE",
+    "ACCELERATOR_PRICE_ID": "REPLACE_WITH_SANDBOX_ACCELERATOR_PRICE",
+    "STRIPE_PUBLISHABLE_KEY": "REPLACE_WITH_SANDBOX_PUBLISHABLE_KEY",
+    "STRIPE_MODE": "test"
+  },
+  "durable_objects": {
+    "bindings": [
+      {
+        "name": "FUNNEL_SESSIONS",
+        "class_name": "FunnelSession"
+      }
+    ]
+  },
+  "migrations": [
+    {
+      "tag": "v1",
+      "new_sqlite_classes": [
+        "FunnelSession"
+      ]
+    }
+  ],
+  "account_id": "d790632d189381078ab7fadb118d0fe8",
+  "kv_namespaces": [
+    {
+      "binding": "ORDERS",
+      "id": "45d0c93ead7f461780ecde0dce4cec43"
+    }
+  ],
+  "ratelimits": [
+    {
+      "name": "CHECKOUT_LIMITER",
+      "namespace_id": "496",
+      "simple": {
+        "limit": 10,
+        "period": 60
+      }
+    }
+  ]
+}

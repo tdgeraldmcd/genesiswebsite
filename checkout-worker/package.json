@@ -1,0 +1,7 @@
+{
+  "name": "genesis-checkout-worker",
+  "private": true,
+  "type": "module",
+  "scripts": { "test": "node --test *.test.mjs" },
+  "dependencies": { "stripe": "23.0.0" }
+}
