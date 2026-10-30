@@ -9,4 +9,9 @@
 .email-signup .button{margin:0;gap:24px;font-family:inherit;cursor:pointer}
 .email-signup input:focus-visible,.email-signup button:focus-visible{outline:3px solid var(--orange);outline-offset:3px}
 .final-cta .email-signup{margin-top:30px}
+.about-gerald{display:grid;grid-template-columns:minmax(0,360px) minmax(0,1fr);align-items:center;gap:80px;border-top:1px solid var(--line)}
+.gerald-portrait{display:block;width:100%;height:auto;border-radius:5px}
+.gerald-bio h2{margin-top:20px}
+.gerald-bio>p:not(.eyebrow){margin-top:24px;max-width:560px;color:var(--muted);font-size:16px;line-height:1.8}
+@media(max-width:760px){.about-gerald{grid-template-columns:1fr;gap:30px}.gerald-portrait{max-width:360px}.gerald-bio>p:not(.eyebrow){font-size:15px}}
 @media(max-width:480px){.email-signup-fields{flex-direction:column}.email-signup .button{justify-content:center}.email-signup input{width:100%}}
