@@ -3,18 +3,40 @@
   "main": "worker.mjs",
   "compatibility_date": "2026-10-27",
   "preview_urls": false,
-  "observability": { "enabled": true, "logs": { "enabled": true } },
+  "observability": {
+    "enabled": true,
+    "logs": {
+      "enabled": true
+    }
+  },
   "vars": {
-    "ONE_CLICK_ENABLED": "false",
+    "ONE_CLICK_ENABLED": "true",
     "SITE_ORIGIN": "https://genesiscontent.io",
     "ACCELERATOR_PAYMENT_LINK_ID": "plink_1UWKY9CW5UYfW04obQbXLD2p",
     "ACCELERATOR_PRICE_ID": "price_1UVrWQCW5UYfW04oh2v25Mnh",
     "STRIPE_PRICE_ID": "price_1UVInACW5UYfW04o5cFsr4YI",
-    "STRIPE_PUBLISHABLE_KEY": "pk_live_51H7ApzCW5UYfW04otfaxrY2yAIca1VXA19LYtvDZjrFnG7KHta7NkdBczDGA2QVRRJARx16rnZ5k9gEZs4MIONkS00iIJqHeIm"
+    "STRIPE_PUBLISHABLE_KEY": "pk_live_51H7ApzCW5UYfW04otfaxrY2yAIca1VXA19LYtvDZjrFnG7KHta7NkdBczDGA2QVRRJARx16rnZ5k9gEZs4MIONkS00iIJqHeIm",
+    "STRIPE_MODE": "live",
+    "UPSELL_PRICE_ID": "price_1UVrJYCW5UYfW04oyKWmo2WM",
+    "DOWNSELL_PRICE_ID": "price_1UWKV7CW5UYfW04oCjqeGQV7"
   },
   "account_id": "d790632d189381078ab7fadb118d0fe8",
-  "durable_objects": { "bindings": [{ "name": "FUNNEL_SESSIONS", "class_name": "FunnelSession" }] },
-  "migrations": [{ "tag": "one-click-v1", "new_sqlite_classes": ["FunnelSession"] }],
+  "durable_objects": {
+    "bindings": [
+      {
+        "name": "FUNNEL_SESSIONS",
+        "class_name": "FunnelSession"
+      }
+    ]
+  },
+  "migrations": [
+    {
+      "tag": "one-click-v1",
+      "new_sqlite_classes": [
+        "FunnelSession"
+      ]
+    }
+  ],
   "kv_namespaces": [
     {
       "binding": "ORDERS",
