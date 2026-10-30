@@ -6,3 +6,18 @@
 
 .hero-video{width:min(100%,400px);justify-self:center}
 .hero-video video{display:block;width:100%;height:auto;aspect-ratio:9/16;background:#18251e;border-radius:6px;box-shadow:0 16px 38px #20362c28}
+
+.proof-and-guide{background:#eee9de;border-top:1px solid var(--line);padding:52px 0 62px}
+.proof-and-guide-inner{display:grid;grid-template-columns:320px minmax(0,1fr);align-items:center;gap:70px}
+.proof-and-guide .product{width:100%;padding:10px 20px}
+.proof-and-guide .book{padding:24px 24px 26px 32px}
+.proof-and-guide .book-title{font-size:54px}
+.proof-and-guide .book p{font-size:12px;line-height:1.5}
+.proof-and-guide .bonus-slip{margin-left:12px;margin-right:-10px;padding:18px}
+.proof-and-guide .bonus-slip strong{font-size:17px}
+.proof-and-guide .press-band{min-width:0;border:0;padding:32px 0}
+.proof-and-guide .press-heading{flex-wrap:wrap;gap:12px;margin-bottom:28px}
+.proof-and-guide .press-heading h2{margin:0}
+.proof-and-guide .press-group{min-width:0;gap:40px}
+@media(max-width:800px){.proof-and-guide-inner{grid-template-columns:260px minmax(0,1fr);gap:35px}.proof-and-guide .book-title{font-size:46px}}
+@media(max-width:640px){.proof-and-guide{padding:36px 0 46px}.proof-and-guide-inner{grid-template-columns:minmax(0,1fr);gap:30px}.proof-and-guide .press-band{grid-row:1;padding:0}.proof-and-guide .product{width:min(310px,90%);margin:auto}.proof-and-guide .book-title{font-size:54px}}
