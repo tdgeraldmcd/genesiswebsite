@@ -1,8 +1,15 @@
 # One-click upsell status — 2026-10-30
 
-Production remains on its existing Checkout / Payment Links. The production
-frontend and Worker one-click flags are still disabled. No live purchases were
-made during testing.
+Production one-click backend is enabled as version
+`c40e5d5a-5fa4-4cdf-88c9-bf1981656be6`. The user saved the live restricted
+`ONE_CLICK_STRIPE_KEY` in the production Worker secrets vault. A no-payment
+smoke check returned HTTP 200 and a live Checkout Session, confirming key mode,
+initial price read, customer creation, and Checkout Session creation permissions.
+No live purchase was made.
+
+Frontend activation committed and pushed as `41dc94a`, with a new configuration
+asset version on all four funnel pages. Production webhook
+`we_1UVJZjCW5UYfW04oU7Flz2K1` includes all one-click reconciliation events.
 
 ## Staging
 
@@ -68,12 +75,15 @@ Initial PI: `pi_3UWLbuCW5UYfW04o11I6UrAI`
 Downsell PI: `pi_3UWLddCW5UYfW04o1ERl8Qzg`
 Accelerator PI: `pi_3UWLeFCW5UYfW04o1kExHh4v`
 
-## Remaining before live cutover
+## Verification limits
 
-- Resolve the Chrome embedded-frame check and verify the full sales-page UI.
-- Configure a restricted live `ONE_CLICK_STRIPE_KEY` on the production Worker;
-  existing production credentials were scoped for the old integration.
-- Verify/configure live prices and STRIPE_MODE=live, expand production webhook
-  events, deploy backend, then enable and publish the frontend.
+- Full payment and 12-installment behavior verified in Stripe test mode, not by
+  charging a live card. Live write permissions beyond checkout creation rely on
+  the user configuring the same permissions as the tested key.
+- GitHub Pages build for 41dc94a completed. All four published pages reference
+  the activated configuration; the public config returns oneClick: true.
+- Production /free consent and the $4.95 Stripe card form rendered successfully
+  in the in-app browser. No card details were entered and Pay was not clicked.
+  The earlier Chrome-profile rendering issue remains unconfirmed.
 - Delivery remains explicitly outside this task. Test booking redirects were
   checked without submitting or booking an appointment.
