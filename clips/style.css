@@ -42,3 +42,5 @@
 .checkout-consent button:disabled{opacity:.5;cursor:not-allowed}
 
 .checkout-consent>p{margin:0;font-size:16px}.checkout-consent .decline{display:block}
+
+.clips-play{display:grid;place-items:center;width:92px;height:92px;margin:24px auto;border:1px solid currentColor;border-radius:50%;font-size:36px}.booking-heading{max-width:760px;margin:0 auto 32px;text-align:center}.booking-section .cta-note{text-align:center}#order{scroll-margin-top:24px}.booking-section .iclosed-widget{background:#fff;border-radius:8px;overflow:hidden}@media(max-width:640px){.sticky-offer .booking-button{font-size:12px;padding:12px}}
