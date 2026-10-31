@@ -19,3 +19,11 @@ test('separate offers each count once, and checkout clicks are not purchases',()
  p.tracking.purchase('free','session');p.tracking.purchase('us','token');assert.deepEqual(p.calls.filter(c=>c[2]==='Purchase').map(c=>c[3].value),[4.95,97]);
 });
 test('staging never emits live pixel events',()=>{assert.equal(page('genesis-one-click-staging.xecvtive.workers.dev').calls.length,0)});
+test('fresh pixel loader queues the initialization and both view events',()=>{
+ const window={};const scripts=[];
+ const document={createElement:()=>({}),getElementsByTagName:()=>[{parentNode:{insertBefore:s=>scripts.push(s)}}],querySelectorAll:()=>[]};
+ vm.runInNewContext(source,{window,document,location:{hostname:'genesiscontent.io',pathname:'/free/'},Set});
+ assert.equal(window.fbq,window._fbq);assert.equal(window.fbq.version,'2.0');
+ assert.equal(scripts.length,1);assert.equal(scripts[0].src,'https://connect.facebook.net/en_US/fbevents.js');
+ assert.deepEqual(Array.from(window.fbq.queue,a=>a[0]),['init','trackSingle','trackSingle']);
+});

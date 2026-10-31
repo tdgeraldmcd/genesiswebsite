@@ -23,3 +23,18 @@ Outstanding:
   server deduplication; do not simply send a second Purchase event.
 - Booking Schedule should fire on confirmed appointment, not a booking-link click.
   The external booking integration is not yet configured here.
+
+## Browser diagnosis — 2026-10-31
+
+Production tracking deployment d3ccb29 completed. User reported no Test Events
+and missing checkout. Follow-up 514da7b uses Meta's standard loader and fixes
+/free anchor alignment after consent UI insertion (removes negative scroll
+margin, explicitly aligns after rendering/mounting, hides competing fallback
+buy button while the consent step is active).
+
+Regular Chrome profile logs a Meta conflicting-version warning followed by
+`undefined is not iterable` in fbevents.js, with Stripe frame about:blank.
+The standard loader does not resolve this profile-specific error. Clean in-app
+browser logs no errors and renders the live Stripe card form after consent.
+No live payment entered/submitted. Meta Test Events receipt is still unverified.
+Asked user to compare Chrome Incognito before changing browser extensions.
