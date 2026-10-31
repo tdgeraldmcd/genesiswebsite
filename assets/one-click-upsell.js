@@ -7,12 +7,9 @@
   const controls = purchases.map(purchase => {
     const note = document.createElement('p'); note.className = 'purchase-note'; note.setAttribute('role', 'status');
     purchase.after(note);
-    const check = document.createElement('button'); check.type = 'button'; check.className = 'decline';
-    check.textContent = 'Check purchase status'; check.hidden = true; note.after(check);
-    return {purchase, note, check, originalText: purchase.textContent};
+    return {purchase, note, originalText: purchase.textContent};
   });
   const setNote = text => controls.forEach(({note}) => { note.textContent = text; });
-  const showChecks = () => controls.forEach(({check}) => { check.hidden = false; });
   let ready = false, busy = false, attempted = false;
   function finish(result) {
     if (result.status === 'succeeded') {
@@ -23,10 +20,10 @@
       if (result.next === expected) location.assign(expected);
       return true;
     }
-    setNote(result.message || 'Your payment needs confirmation. Check the purchase status before trying again.');
+    setNote(result.message || 'Your payment needs confirmation. Refresh this page to confirm the payment status before trying again.');
     return false;
   }
-  controls.forEach(({purchase, check}) => {
+  controls.forEach(({purchase}) => {
     purchase.addEventListener('click', async event => {
       if (!ready) {
         // A visitor without a saved-card session can use the existing regular Checkout link.
@@ -35,7 +32,7 @@
       }
       event.preventDefault();
       if (busy) return;
-      busy = true; attempted = true; showChecks();
+      busy = true; attempted = true;
       window.genesisTracking?.checkout(offer);
       controls.forEach(({purchase}) => { purchase.setAttribute('aria-disabled', 'true'); purchase.textContent = 'Confirming…'; });
       try {
@@ -50,13 +47,6 @@
       } catch (error) { setNote(error.message); }
       finally { busy = false; controls.forEach(({purchase, originalText}) => { purchase.removeAttribute('aria-disabled'); purchase.textContent = originalText; }); }
     });
-    check.addEventListener('click', async () => {
-      if (busy) return;
-      busy = true; check.disabled = true;
-      try { finish(await funnel.api('status', { offer })); }
-      catch (error) { setNote(error.message); }
-      finally { busy = false; check.disabled = false; }
-    });
   });
   try {
     if (!funnel.token()) { setNote('Use secure checkout to purchase this offer.'); return; }
@@ -67,7 +57,7 @@
     const amount = offer === 'us' ? '$97 once' : offer === 'ds' ? '$47 once' : '$97 today, then $97 monthly for 11 more payments ($1,164 total)';
     setNote(`Clicking this button charges your saved ${state.card.brand} ending in ${state.card.last4}: ${amount}.`);
     const existing = await funnel.api('status', {offer});
-    if (existing.status !== 'not_started') { attempted = true; showChecks(); finish(existing); }
+    if (existing.status !== 'not_started') { attempted = true; finish(existing); }
   } catch (error) {
     // An expired/uncertain existing session must not silently open a second checkout.
     attempted = true; setNote(error.message);
