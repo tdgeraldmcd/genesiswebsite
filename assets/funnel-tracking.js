@@ -17,8 +17,7 @@
     ds: {value: 47, content_name: 'Cash Flow Content Webinar without Q&A'},
     accelerator: {value: 97, content_name: 'Cash Flow Content Accelerator — first payment'}
   };
-  const route = location.pathname.split('/')[1];
-  const page = route === 'clips' ? 'free' : route;
+  const page = location.pathname.split('/')[1];
   const seen = new Set();
   function send(name, offer, eventID) {
     try {
