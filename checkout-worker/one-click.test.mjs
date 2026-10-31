@@ -23,7 +23,7 @@ function fixture() {
 }
 const start = f=>f.funnel.start({consent:true,consentVersion:CONSENT_VERSION});
 test('save consent is explicit and versioned; no consent cannot create checkout',async()=>{
- const f=fixture();await assert.rejects(f.funnel.start({consent:false}),/agree/);assert.equal(f.calls.length,0);
+ const f=fixture();await assert.rejects(f.funnel.start({consent:false}),/reload checkout/);assert.equal(f.calls.length,0);
  await start(f);const params=f.calls.find(c=>c[0]==='checkout')[1];assert.equal(params.payment_intent_data.setup_future_usage,'off_session');assert.equal(params.customer,'cus_mock');assert.equal(params.line_items[0].price,'price_initial');
  assert.deepEqual(params.allowed_payment_method_types,['card']);
  await start(f);assert.equal(f.calls.filter(c=>c[0]==='checkout').length,1);
@@ -84,4 +84,15 @@ test('Durable Object queues concurrent requests across awaits',async()=>{
  const ctx={id:{toString:()=> 'id'},storage:{get:async()=>{running++;max=Math.max(max,running);await new Promise(r=>setTimeout(r,5));running--;return null}}};
  const object=new FunnelSession(ctx,{ONE_CLICK_STRIPE_KEY:'mock'});
  await Promise.all([1,2,3].map(()=>object.fetch(new Request('https://internal/summary',{method:'POST',body:'{}'}))));assert.equal(max,1);
+});
+
+test('direct checkout presents disclosure and records acceptance only after paid confirmation',async()=>{
+ const f=fixture();await f.funnel.start({checkoutDisclosureVersion:CONSENT_VERSION});
+ assert.equal(f.values.get('record').consent,undefined);
+ const params=f.calls.find(c=>c[0]==='checkout')[1];
+ assert.match(params.custom_text.submit.message,/optional offers/);
+ f.session.payment_status='unpaid';await assert.rejects(f.funnel.summary(),/not confirmed/);
+ assert.equal(f.values.get('record').consent,undefined);
+ f.session.payment_status='paid';await f.funnel.summary();
+ assert.equal(f.values.get('record').consent.acceptanceMethod,'checkout_payment');
 });

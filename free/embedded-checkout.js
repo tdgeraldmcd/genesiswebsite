@@ -9,8 +9,6 @@
   let loading = false;
   let completed = false;
   const funnel = window.genesisFunnel;
-  let saveConsent = false;
-  let consentPrompt;
   const order = document.getElementById('order');
   let requestedScroll = false;
   const alignCheckout = () => order.scrollIntoView({behavior:'instant', block:'start'});
@@ -47,31 +45,9 @@
         await confirm(returnSession);
         return;
       }
-      if (funnel?.enabled && !saveConsent) {
-        status.textContent = 'Secure checkout powered by Stripe.';
-        fallback.hidden = true;
-        if (!consentPrompt) {
-          consentPrompt = document.createElement('div');
-          consentPrompt.className = 'checkout-consent';
-          const intro = document.createElement('p');
-          intro.textContent = 'First, choose whether to save your card for optional offers. Then your $4.95 payment form will open below.';
-          const label = document.createElement('label');
-          const checkbox = document.createElement('input'); checkbox.type = 'checkbox';
-          label.append(checkbox, document.createTextNode(' Save my payment method for optional offers I explicitly accept next. The initial purchase is $4.95. Any accelerator subscription requires my separate acceptance of $97/month for 12 payments.'));
-          const proceed = document.createElement('button'); proceed.type = 'button'; proceed.className = 'button';
-          proceed.textContent = 'Continue to secure checkout'; proceed.disabled = true;
-          checkbox.addEventListener('change', () => { proceed.disabled = !checkbox.checked; });
-          proceed.addEventListener('click', () => { saveConsent = checkbox.checked; consentPrompt.hidden = true; requestedScroll = true; start(); });
-          const regular = document.createElement('a'); regular.href = fallback.href; regular.className = 'decline';
-          regular.textContent = 'Continue without saving my payment method';
-          consentPrompt.append(intro, label, proceed, regular); root.before(consentPrompt);
-        }
-        root.hidden = true;
-        return;
-      }
       await loadStripe();
       const session = funnel?.enabled
-        ? await funnel.api('start', { consent: true, consentVersion: funnel.consentVersion }, true)
+        ? await funnel.api('start', { checkoutDisclosureVersion: funnel.consentVersion }, true)
         : await api('/session');
       const stripe = window.Stripe(session.publishableKey);
       instance = await stripe.createEmbeddedCheckoutPage({
@@ -104,7 +80,7 @@
       event.preventDefault(); requestedScroll = true;
       history.replaceState(null, '', '#order');
       start();
-      // Render the consent step before setting the scroll position.
+      // Reveal the checkout container before setting the scroll position.
       requestAnimationFrame(alignCheckout);
     });
   });

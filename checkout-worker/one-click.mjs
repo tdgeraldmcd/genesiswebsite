@@ -37,11 +37,13 @@ export class Funnel {
   }
   options(operation) { return { idempotencyKey: `genesis-funnel-v1:${this.id}:${operation}` }; }
   async start(input) {
-    if (input.consent !== true || input.consentVersion !== CONSENT_VERSION) throw new FunnelError('Please agree to save your payment method before continuing.');
+    const legacyConsent = input.consent === true && input.consentVersion === CONSENT_VERSION;
+    if (!legacyConsent && input.checkoutDisclosureVersion !== CONSENT_VERSION) throw new FunnelError('Please reload checkout to review the current payment terms.');
     let record = await this.storage.get('record');
     if (!record) {
       record = await this.save({ created: this.now(), expires: this.now() + LIFETIME,
-        consent: { version: CONSENT_VERSION, acceptedAt: this.now() }, operations: {} });
+        checkoutDisclosure: { version: CONSENT_VERSION, presentedAt: this.now(), acceptanceMethod: 'checkout_payment' },
+        ...(legacyConsent ? { consent: { version: CONSENT_VERSION, acceptedAt: this.now(), acceptanceMethod: 'checkbox' } } : {}), operations: {} });
       await this.storage.setAlarm((record.expires + 86400) * 1000);
     }
     record = await this.record();
@@ -85,6 +87,8 @@ export class Funnel {
         payment.setup_future_usage !== 'off_session') {
       throw new FunnelError('This payment method cannot be reused here. Please use secure checkout.', 422);
     }
+    // A session being created is not acceptance. Record it only after paid Checkout.
+    record.consent ||= { version: CONSENT_VERSION, confirmedAt: this.now(), acceptanceMethod: 'checkout_payment', checkoutSession: session.id };
     record.method = method.id;
     record.card = { brand: method.card.brand, last4: method.card.last4 };
     await this.save(record);
