@@ -31,7 +31,7 @@
 @media(max-width:800px){.gerald-grid{grid-template-columns:minmax(0,260px) minmax(0,1fr);gap:35px}}
 @media(max-width:640px){.gerald-section{padding:45px 0}.gerald-grid{grid-template-columns:minmax(0,1fr);gap:30px}.gerald-photo{max-width:340px;margin-inline:auto}}
 
-#order{display:flow-root;scroll-margin-top:-30px}
+#order{display:flow-root;scroll-margin-top:0;overflow-anchor:none}
 #order .checkout-status:first-child{margin-top:0}
 
 .hero .hero-subtitle{font-size:24px;line-height:1.6}
@@ -40,3 +40,5 @@
 .checkout-consent{padding:20px 0;display:grid;gap:18px;font-size:14px;line-height:1.6}
 .checkout-consent input{margin-right:8px;accent-color:var(--ink)}
 .checkout-consent button:disabled{opacity:.5;cursor:not-allowed}
+
+.checkout-consent>p{margin:0;font-size:16px}.checkout-consent .decline{display:block}

@@ -2,12 +2,14 @@
   // Keep preview/test traffic out of the live advertising dataset.
   if (location.hostname !== 'genesiscontent.io') return;
   const pixel = '1074670735061961';
-  if (!window.fbq) {
-    const fbq = window.fbq = function () { fbq.callMethod ? fbq.callMethod.apply(fbq, arguments) : fbq.queue.push(arguments); };
-    window._fbq = fbq; fbq.push = fbq; fbq.loaded = true; fbq.version = '2.0'; fbq.queue = [];
-    const script = document.createElement('script'); script.async = true;
-    script.src = 'https://connect.facebook.net/en_US/fbevents.js'; document.head.append(script);
-  }
+  // Use Meta's standard loader so browser integrations recognize its queue.
+  !function(f,b,e,v,n,t,s) {
+    if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+      n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];
+    t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];
+    s.parentNode.insertBefore(t,s);
+  }(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
   window.fbq('init', pixel);
   const offers = {
     free: {value: 4.95, content_name: 'The Content Compass'},

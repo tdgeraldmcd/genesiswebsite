@@ -11,6 +11,9 @@
   const funnel = window.genesisFunnel;
   let saveConsent = false;
   let consentPrompt;
+  const order = document.getElementById('order');
+  let requestedScroll = false;
+  const alignCheckout = () => order.scrollIntoView({behavior:'instant', block:'start'});
   const returnSession = new URLSearchParams(location.search).get('session_id');
   const api = async (path, body = {}) => {
     const response = await fetch(`${apiOrigin.replace(/\/$/, '')}${path}`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body), signal: AbortSignal.timeout(20000) });
@@ -45,20 +48,23 @@
         return;
       }
       if (funnel?.enabled && !saveConsent) {
-        status.textContent = 'Choose how to continue to your $4.95 checkout.';
+        status.textContent = 'Secure checkout powered by Stripe.';
+        fallback.hidden = true;
         if (!consentPrompt) {
           consentPrompt = document.createElement('div');
           consentPrompt.className = 'checkout-consent';
+          const intro = document.createElement('p');
+          intro.textContent = 'First, choose whether to save your card for optional offers. Then your $4.95 payment form will open below.';
           const label = document.createElement('label');
           const checkbox = document.createElement('input'); checkbox.type = 'checkbox';
           label.append(checkbox, document.createTextNode(' Save my payment method for optional offers I explicitly accept next. The initial purchase is $4.95. Any accelerator subscription requires my separate acceptance of $97/month for 12 payments.'));
           const proceed = document.createElement('button'); proceed.type = 'button'; proceed.className = 'button';
           proceed.textContent = 'Continue to secure checkout'; proceed.disabled = true;
           checkbox.addEventListener('change', () => { proceed.disabled = !checkbox.checked; });
-          proceed.addEventListener('click', () => { saveConsent = checkbox.checked; consentPrompt.hidden = true; start(); });
+          proceed.addEventListener('click', () => { saveConsent = checkbox.checked; consentPrompt.hidden = true; requestedScroll = true; start(); });
           const regular = document.createElement('a'); regular.href = fallback.href; regular.className = 'decline';
           regular.textContent = 'Continue without saving my payment method';
-          consentPrompt.append(label, proceed, regular); root.before(consentPrompt);
+          consentPrompt.append(intro, label, proceed, regular); root.before(consentPrompt);
         }
         root.hidden = true;
         return;
@@ -81,18 +87,30 @@
       });
       instance.mount('#embedded-checkout');
       window.genesisTracking?.checkout('free');
+      fallback.hidden = true;
+      if (requestedScroll) { alignCheckout(); requestedScroll = false; }
       status.textContent = 'Secure checkout powered by Stripe.';
     } catch {
-      instance?.destroy(); instance = null; root.hidden = true;
+      instance?.destroy(); instance = null; root.hidden = true; fallback.hidden = false;
       if (returnSession) { status.textContent = 'We could not confirm your payment. Please check your Stripe receipt or contact (914) 455-0381 before paying again.'; return; }
       status.textContent = 'The embedded form could not load. You can still purchase using the Stripe checkout link below.';
     } finally { loading = false; }
   }
   document.querySelectorAll('.checkout-button').forEach(link => {
-    if (link === fallback) return;
-    link.href = '#order';
-    link.addEventListener('click', start);
+    if (link !== fallback) link.href = '#order';
   });
+  document.querySelectorAll('a[href="#order"]').forEach(link => {
+    link.addEventListener('click', event => {
+      event.preventDefault(); requestedScroll = true;
+      history.replaceState(null, '', '#order');
+      start();
+      // Render the consent step before setting the scroll position.
+      requestAnimationFrame(alignCheckout);
+    });
+  });
+  if (location.hash === '#order') {
+    requestedScroll = true; start(); requestAnimationFrame(alignCheckout);
+  }
   new IntersectionObserver((entries, observer) => {
     if (entries.some(entry => entry.isIntersecting)) { observer.disconnect(); start(); }
   }).observe(root.parentElement);
