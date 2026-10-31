@@ -28,6 +28,7 @@
       ? { paid: (await funnel.api('summary')).ready }
       : await api('/status', { sessionId });
     if (!result.paid) { status.textContent = 'Your payment is not confirmed yet. Check your Stripe receipt or contact (914) 455-0381 before paying again.'; return; }
+    window.genesisTracking?.purchase('free', sessionId);
     completed = true; instance?.destroy(); root.hidden = true; fallback.hidden = true;
     status.textContent = 'Payment confirmed. Thank you for purchasing The Content Compass.';
     // Continue the funnel only after the backend confirms payment.
@@ -79,6 +80,7 @@
         }
       });
       instance.mount('#embedded-checkout');
+      window.genesisTracking?.checkout('free');
       status.textContent = 'Secure checkout powered by Stripe.';
     } catch {
       instance?.destroy(); instance = null; root.hidden = true;

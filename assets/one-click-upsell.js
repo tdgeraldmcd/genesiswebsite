@@ -16,6 +16,7 @@
   let ready = false, busy = false, attempted = false;
   function finish(result) {
     if (result.status === 'succeeded') {
+      window.genesisTracking?.purchase(offer, funnel.token());
       setNote('Payment confirmed. Continuing…');
       // Only fixed, expected destinations are allowed.
       const expected = offer === 'accelerator' ? 'https://app.iclosed.io/e/gns/thoughtleader' : '/accelerator/';
@@ -35,6 +36,7 @@
       event.preventDefault();
       if (busy) return;
       busy = true; attempted = true; showChecks();
+      window.genesisTracking?.checkout(offer);
       controls.forEach(({purchase}) => { purchase.setAttribute('aria-disabled', 'true'); purchase.textContent = 'Confirming…'; });
       try {
         const result = await funnel.api('purchase', { offer, accepted: true, consentVersion: funnel.consentVersion });
